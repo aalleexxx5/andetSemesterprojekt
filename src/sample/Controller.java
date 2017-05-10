@@ -19,6 +19,9 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable{
 
     //TODO search with string.contains
+    private static String lightPink = "ffcccc";
+    private static String pink = "ffaaaa";
+    private static String white = "ffffff";
 
     public Label topLabel;
     public PasswordField password;
@@ -90,39 +93,39 @@ public class Controller implements Initializable{
     void signUp(ActionEvent e){
         boolean isProfileValid = true;
         if (signPassword.getText().length() < 8) {
-            signPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffcccc"),null,null)));
+            signPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink),null,null)));
             isProfileValid = false;
         }
             if (signPassword.getText().equals(signRepPassword.getText())) {
-                signRepPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffffff"),null,null)));
-                signPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffffff"),null,null)));
+                signRepPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(white),null,null)));
+                signPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(white),null,null)));
             }else {
-                signRepPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffcccc"),null,null)));
+                signRepPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink),null,null)));
                 isProfileValid = false;
             }
 
         if (signUsername.getText().isEmpty()||webshop.usernameExists(username.getText())){
-            signUsername.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffcccc"),null,null)));
+            signUsername.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink),null,null)));
             isProfileValid = false;
         }
 
         if (!signEmail.getText().matches("(\\w+)@(\\w+)\\.(\\w+)")){
-            signEmail.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffcccc"),null,null)));
+            signEmail.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink),null,null)));
             isProfileValid = false;
         }
 
         if (signName.getText().isEmpty()){
-            signName.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffcccc"),null,null)));
+            signName.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink),null,null)));
             isProfileValid = false;
         }
 
         if (!signPhone.getText().matches("\\d{8}")){
-            signPhone.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffcccc"),null,null)));
+            signPhone.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink),null,null)));
             isProfileValid = false;
         }
 
         if (signAddress.getText().isEmpty()){
-            signAddress.setBackground(new Background(new BackgroundFill(Paint.valueOf("ffaaaa"),null,null)));
+            signAddress.setBackground(new Background(new BackgroundFill(Paint.valueOf(pink),null,null)));
             isProfileValid = false;
         }
         if (isProfileValid){
