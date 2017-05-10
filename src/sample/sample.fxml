@@ -15,7 +15,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <TabPane layoutX="100.0" layoutY="63.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -23,13 +23,46 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label id="label" fx:id="topLabel" layoutX="242.0" layoutY="40.0" text="Not logged in" />
-                        <Label fx:id="loggedInLabel" layoutX="183.0" layoutY="233.0" prefHeight="21.0" prefWidth="207.0" text="Logged in as: Visitor" />
-                        <PasswordField fx:id="password" layoutX="301.0" layoutY="186.0" promptText="Password" />
-                        <TextField fx:id="username" layoutX="130.0" layoutY="186.0" promptText="Username" />
-                        <Label layoutX="130.0" layoutY="158.0" text="Username:" />
-                        <Label layoutX="300.0" layoutY="158.0" text="Password:" />
-                        <Button fx:id="login" layoutX="132.0" layoutY="226.0" mnemonicParsing="false" onAction="#login" text="Login" />
+                        <AnchorPane layoutX="41.0" layoutY="30.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                           <children>
+                              <GridPane layoutY="28.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <TextField fx:id="username" layoutX="57.0" layoutY="20.0" promptText="Username" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <PasswordField fx:id="password" layoutX="-33.0" layoutY="18.0" promptText="Password" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Label layoutX="24.0" layoutY="21.0" text="Username:" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label layoutX="-6.0" layoutY="20.0" text="Password:" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Label id="label" fx:id="topLabel" text="Not logged in" GridPane.rowIndex="2" />
+                                    <Label fx:id="loggedInLabel" prefHeight="21.0" prefWidth="207.0" text="Logged in as: Visitor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                              <Button fx:id="login" layoutX="211.0" layoutY="202.0" mnemonicParsing="false" onAction="#login" text="Login" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
             </content>
@@ -85,12 +118,12 @@
                                        <children>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                                              <children>
-                                                <Button fx:id="signUp" layoutX="68.0" layoutY="51.0" mnemonicParsing="false" onAction="#signUp" prefHeight="46.0" prefWidth="115.0" text="Sign up" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" />
+                                                <TextArea fx:id="signAddress" layoutX="-37.0" layoutY="10.0" prefHeight="135.0" prefWidth="269.0" promptText="Address" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                              </children>
                                           </AnchorPane>
                                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                              <children>
-                                                <TextArea fx:id="signAddress" layoutX="-50.0" layoutY="-25.0" prefHeight="135.0" prefWidth="269.0" promptText="Address" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                <Button fx:id="signUp" layoutX="54.0" layoutY="30.0" mnemonicParsing="false" onAction="#signUp" prefHeight="46.0" prefWidth="115.0" text="Sign up" />
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -106,17 +139,13 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <TableView fx:id="shopTable" prefHeight="200.0" prefWidth="600.0">
-                                <columns>
-                                  <TableColumn fx:id="shopListNameCol" prefWidth="75.0" text="Name" />
-                                  <TableColumn fx:id="shopListPriceCol" prefWidth="75.0" text="Price" />
-                                  <TableColumn fx:id="shopListCategoryCol" prefWidth="75.0" text="Category" />
-                                </columns>
-                              </TableView>
-                           </content>
-                        </ScrollPane>
+                        <TableView fx:id="shopTable" layoutX="-149.0" layoutY="20.0" prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="shopListNameCol" prefWidth="75.0" text="Name" />
+                            <TableColumn fx:id="shopListPriceCol" prefWidth="75.0" text="Price" />
+                            <TableColumn fx:id="shopListCategoryCol" prefWidth="75.0" text="Category" />
+                          </columns>
+                        </TableView>
                      </children>
                     </AnchorPane>
                 </content>
@@ -146,8 +175,8 @@
                         <TextField fx:id="addProductName" layoutX="81.0" layoutY="49.0" promptText="Name" />
                         <TextField fx:id="addProductCategory" layoutX="82.0" layoutY="102.0" promptText="Category" />
                         <TextField fx:id="addProductID" layoutX="82.0" layoutY="150.0" promptText="ID" />
-                        <Button fx:id="addProductSubmit" layoutX="81.0" layoutY="266.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="31.0" prefWidth="188.0" text="Submit" />
-                        <TextField fx:id="addProductPrice" layoutX="81.0" layoutY="199.0" promptText="Price" />
+                        <TextField fx:id="addProductPrice" layoutX="84.0" layoutY="199.0" promptText="Price" />
+                        <Button fx:id="addProductSubmit" layoutX="85.0" layoutY="256.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="31.0" prefWidth="188.0" text="Submit" />
                      </children>
                     </AnchorPane>
                 </content>
