@@ -15,7 +15,16 @@ public class RegisteredProfile extends Profile {
      * Used for visitors who has logged in.
      */
     public RegisteredProfile(int profileID, String name, String address, String phone, String email, Order[] processedOrders) {
-        super(profileID);
+        super(profileID, ProfileType.CLIENT);
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.processedOrders = processedOrders;//NOTE: Might be null
+    }
+
+    public RegisteredProfile(int profileID, String name, String address, String phone, String email, Order[] processedOrders, ProfileType type) {
+        super(profileID,type);
         this.name = name;
         this.address = address;
         this.phone = phone;

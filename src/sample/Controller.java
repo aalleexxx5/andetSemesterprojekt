@@ -18,12 +18,14 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
 
+    //TODO search with string.contains
 
     public Label topLabel;
     public PasswordField password;
     public TextField username;
-    public Button login;
+    public Label loggedInLabel;
 
+    public Button login;
     public Button signUp;
     public PasswordField signPassword;
     public PasswordField signRepPassword;
@@ -31,12 +33,18 @@ public class Controller implements Initializable{
     public TextField signEmail;
     public TextField signName;
     public TextField signPhone;
-    public TextArea signAddress;
 
+    public TextArea signAddress;
     public TableView<Product> shopTable;
     public TableColumn shopListNameCol;
     public TableColumn shopListPriceCol;
+
     public TableColumn shopListCategoryCol;
+    public TextField addProductName;
+    public TextField addProductCategory;
+    public TextField addProductID;
+    public Button addProductSubmit;
+    public TextField addProductPrice;
 
 
     private Webshop webshop;
@@ -68,7 +76,7 @@ public class Controller implements Initializable{
     /**
      * Verifies all textfields concerned with the sign up process. An invalid field will be made red, to alert the user of an error.
      * TODO There is currently no error message displayed.
-     * A valid user has
+     * A valid user has:
      * A password longer than 8 characters.
      * A Repeat password matching the password field.
      * A unique username
@@ -130,8 +138,27 @@ public class Controller implements Initializable{
     @FXML
     void login(ActionEvent e){
         if (webshop.login(username.getText(),password.getText())){
-            topLabel.setText("Sucessfully logged in as "+ webshop.getLoggedInProfile().getName());
+            topLabel.setText("Successfully logged in as "+ webshop.getLoggedInProfile().getName());
         }
         else topLabel.setText("User/Password combination does not exist.");
+
+        if (webshop.getLoggedInProfile()==null){
+            loggedInLabel.setText("Logged in as: Visitor");
+        }else{
+            loggedInLabel.setText("Logged in as: "+webshop.getCurrentProfile().getType());
+        }
+    }
+
+
+    public void addProduct(ActionEvent event) {
+        if (addProductID.getText().matches("\\d*")){
+            if (addProductPrice.getText().matches("(\\d+)[.,](\\d{1,2})")){
+                webshop.addProduct(new Product(addProductName.getText(),addProductCategory.getText(),Integer.valueOf(addProductID.getText()),Double.valueOf(addProductPrice.getText())));
+            }else{
+                System.out.println("Product Price is not formatted correctly.");
+            }
+        }else{
+            System.out.println("Product ID is not formatted correctly");
+        }
     }
 }

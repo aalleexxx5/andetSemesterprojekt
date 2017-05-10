@@ -16,5 +16,10 @@ public class ProductCatalogue {
         return products;
     }
 
+    public void addProduct(Product p){
+        products.add(p);
+    }
+
+    //NOTE search might need to be moved to Database.
     //TODO: Search goes here
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <TabPane layoutX="100.0" layoutY="63.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -21,11 +21,12 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label id="label" fx:id="topLabel" layoutX="242.0" layoutY="40.0" text="Not logged in" />
-                        <PasswordField fx:id="password" layoutX="301.0" layoutY="186.0" promptText="Password" />
-                        <TextField fx:id="username" layoutX="130.0" layoutY="186.0" promptText="Username" />
-                        <Label layoutX="130.0" layoutY="158.0" text="Username:" />
-                        <Label layoutX="300.0" layoutY="158.0" text="Password:" />
-                        <Button fx:id="login" layoutX="132.0" layoutY="226.0" mnemonicParsing="false" onAction="#login" text="Login" />
+                        <PasswordField fx:id="password" layoutX="335.0" layoutY="186.0" promptText="Password" />
+                        <TextField fx:id="username" layoutX="107.0" layoutY="186.0" promptText="Username" />
+                        <Label layoutX="107.0" layoutY="158.0" text="Username:" />
+                        <Label layoutX="335.0" layoutY="158.0" text="Password:" />
+                        <Button fx:id="login" layoutX="107.0" layoutY="228.0" mnemonicParsing="false" onAction="#login" text="Login" />
+                        <Label fx:id="loggedInLabel" layoutX="183.0" layoutY="233.0" prefHeight="21.0" prefWidth="207.0" text="Logged in as: Visitor" />
                      </children>
                   </AnchorPane>
             </content>
@@ -79,6 +80,19 @@
                         <children>
 
                         </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab closable="false" text="Add product">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="addProductName" layoutX="81.0" layoutY="49.0" promptText="Name" />
+                        <TextField fx:id="addProductCategory" layoutX="82.0" layoutY="102.0" promptText="Category" />
+                        <TextField fx:id="addProductID" layoutX="82.0" layoutY="150.0" promptText="ID" />
+                        <Button fx:id="addProductSubmit" layoutX="81.0" layoutY="266.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="31.0" prefWidth="188.0" text="Submit" />
+                        <TextField fx:id="addProductPrice" layoutX="81.0" layoutY="199.0" promptText="Price" />
+                     </children>
                     </AnchorPane>
                 </content>
             </Tab>

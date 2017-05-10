@@ -1,6 +1,5 @@
 package sample;
 
-import java.util.ArrayList;
 
 /**
  * Created by Alex on 08/05/2017.
@@ -9,10 +8,12 @@ public class Webshop {
     private DatabaseManager dbm;
 
     private RegisteredProfile loggedInProfile;
+    private Profile currentProfile;
 
     private ProductCatalogue productCatalogue;
 
     public Webshop() {
+        currentProfile = new Profile(141,ProfileType.VISITOR);
         dbm = new DatabaseManager();
         productCatalogue = new ProductCatalogue(dbm.getProductList());
     }
@@ -25,7 +26,11 @@ public class Webshop {
      */
     public boolean login(String username, String password){
         loggedInProfile = dbm.login(username, password);
-        return loggedInProfile!=null;
+        if (loggedInProfile!=null){
+            currentProfile = loggedInProfile;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -66,5 +71,19 @@ public class Webshop {
      */
     public ProductCatalogue getProductCatalogue() {
         return productCatalogue;
+    }
+
+    public void addProduct(Product p){
+        if (currentProfile.getType()==ProfileType.ADMIN){
+            System.out.println("Placeholder product add");
+            productCatalogue.addProduct(p);
+            System.out.println("list.add(new Product(\""+p.getName()+"\",\""+p.getCategory()+"\", "+p.getProductID()+", "+p.getPrice()+"));\n");
+        }else {
+            System.out.println("Sorry, you are not logged in as an admin, and can not add new products.");
+        }
+    }
+
+    public Profile getCurrentProfile() {
+        return currentProfile;
     }
 }

@@ -6,11 +6,14 @@ import java.util.ArrayList;
  * Created by Alex on 08/05/2017.
  */
 public class Profile {
+    //Session storage of a profile. For a returning visitor to keep his/her cart+wish list stored
     private ProductList cart;
     private ArrayList<Product> wishlist;
-    private ProfileType type = ProfileType.VISITOR;
+    private ProfileType type;
     private int profileID; // One could imagine this ID is stored client side while client is a visitor. To allow revisits.
-    public Profile(int profileID) {
+
+    public Profile(int profileID, ProfileType type){
+        this.type = type;
         this.profileID = profileID;
         cart = new ProductList();
         wishlist = new ArrayList<Product>();
