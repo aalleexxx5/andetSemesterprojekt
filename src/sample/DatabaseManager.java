@@ -1,11 +1,13 @@
 package sample;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alex on 08/05/2017.
- * This class contains all comunication with the database.
+ * This class contains all communication with the database.
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
-public class DatabaseMannager {
+public class DatabaseManager {
 
     /**
      * Attempts to log a user in. The database will return the profile data if username and password matches a profile in the database.
@@ -24,12 +26,21 @@ public class DatabaseMannager {
 
         //Temporary return values for testing:
         if (username.equals("deadbeef")&&password.equals("deadbeef")){
-            return new RegisteredProfile(0xDEADBEEF, "dead beef", "Local butchery, butcheryway 666 Butchery City", "37359285", "dead@beef.com", null);
+            return new RegisteredProfile(0xDEAD_BEEF, "dead beef", "Local butchery, butcheryway 666 Butchery City", "37359285", "dead@beef.com", null);
         }
         if (username.equals("deafface")&&password.equals("deafface")){
-            return new RegisteredProfile(0xDEAFFACE, "deaf face", "SilentStreet 15, Silent Hill", "37360749", "deaf@face.org", null);
+            return new RegisteredProfile(0xDEAF_FACE, "deaf face", "SilentStreet 15, Silent Hill", "37360749", "deaf@face.org", null);
         }
         return null;
+    }
+
+    /**
+     * Returns whether a username is in use in the database.
+     * @param username The username to check
+     * @return True, if the name is in use.
+     */
+    public boolean userExixts(String username){
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -48,8 +59,15 @@ public class DatabaseMannager {
      * Returns the full list of all products.
      * @return an array of products.
      */
-    public Product[] getProductList(){
-        throw new UnsupportedOperationException("Not yet implemented");
+    public ArrayList<Product> getProductList(){
+        //Temp test value:
+
+        ArrayList<Product> list = new ArrayList<>();
+        list.add(new Product("tablefan","electronics", 345, 244.95));
+        list.add(new Product("monitor", "monitors", 423, 1499.95));
+        list.add(new Product("super tablefan","electronics", 346, 449.99));
+        return list;
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 
     /**
@@ -73,6 +91,8 @@ public class DatabaseMannager {
      * @return a string array containing all product categories.
      */
     public String[] getProductCategories(){
-        throw new UnsupportedOperationException("Not yet implemented");
+        //Temp return value for testing:
+        return new String[] {"monitors", "electronics"};
+
     }
 }

@@ -23,7 +23,7 @@ public class ProductList {
     }
 
     /**
-     * Incremant the amount of products with a certain amount.
+     * Increment the amount of products with a certain amount.
      * If the product does not exist, it will be created.
      *
      * @param p      The product to increment

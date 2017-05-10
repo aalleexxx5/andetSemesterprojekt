@@ -7,7 +7,7 @@ public class Product {
     private String name;
 
     private String category;
-
+    //Description, anyone?
     private int productID;
     private double price; //TODO: Decimal type instead of a double. To avoid floating point math errors
     public Product(String name,String category, int productID, double price) {

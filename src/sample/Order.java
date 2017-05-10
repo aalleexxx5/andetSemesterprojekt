@@ -2,19 +2,20 @@ package sample;
 
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by Alex on 08/05/2017.
  */
 public class Order {
-    private ProductList products;
+    private HashMap<ProductList,Double> productPriceMap;
     private int orderNumber;
-    private double price; //TODO should not be a double. NOTE: There is currently no way to see what a given product cost at the point of purchase
+    private double price;
     private Calendar date;
     private OrderStatus status;
 
-    public Order(ProductList products, int orderNumber, double price) {
-        this.products = products;
+    public Order(HashMap<ProductList, Double> productPriceMap, int orderNumber, double price) {
+        this.productPriceMap = productPriceMap;
         this.orderNumber = orderNumber;
         this.price = price;
         this.status = OrderStatus.AWAITING_PAYMENT;
@@ -22,11 +23,11 @@ public class Order {
     }
 
     /**
-     * Returns the list of products referenced in this order.
-     * @return A {@link ProductList} containing all products ordered.
+     * Returns the list of products referenced in this order mapped to the price of the products.
+     * @return A HashMap consisting of a {@link ProductList} mapped to the price, when it item was purchased.
      */
-    public ProductList getProducts() {
-        return products;
+    public HashMap<ProductList, Double> getProductPriceMap() {
+        return productPriceMap;
     }
 
     /**
