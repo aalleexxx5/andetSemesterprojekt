@@ -1,0 +1,18 @@
+Code pieces from the sources, that i have removed, during my work on the file db.
+
+// Temporary return values for testing:
+
+if (username.equals("deadbeef")&&password.equals("deadbeef"))
+{
+    return new RegisteredProfile(0xDEAD_BEEF, "dead beef", "Local butchery, butcheryway 666 Butchery City", "37359285", "dead@beef.com", null);
+}
+
+if (username.equals("admin")&&password.equals("admin"))
+{
+    return new RegisteredProfile(0xDEAD_BEF0, "Admin", "Wherever Admin lives", "12121212", "admin@admin.com", null, ProfileType.ADMIN);
+}
+
+if (username.equals("deafface")&&password.equals("deafface"))
+{
+    return new RegisteredProfile(0xDEAF_FACE, "deaf face", "SilentStreet 15, Silent Hill", "37360749", "deaf@face.org", null);
+}
