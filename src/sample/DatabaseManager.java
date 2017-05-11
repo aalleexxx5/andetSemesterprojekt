@@ -7,7 +7,9 @@ import java.util.ArrayList;
  * This class contains all communication with the database.
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
-public class DatabaseManager {
+public class DatabaseManager
+{
+    Database ourDatabase = new File_database();
 
     /**
      * Attempts to log a user in. The database will return the profile data if username and password matches a profile in the database.
@@ -15,7 +17,8 @@ public class DatabaseManager {
      * @param password The password of the profile.
      * @return A {@link RegisteredProfile} if one with the gived credentials exists in the database. null otherwise.
      */
-    RegisteredProfile login(String username, String password){
+    RegisteredProfile login( String username, String password )
+    {
         /*
          Remember to escape username and password when changing to Database Quarry.
          If you do not know what escaping is or how to do it, ask Alex or Google.
@@ -24,15 +27,27 @@ public class DatabaseManager {
          Good luck.
           */
 
-        //Temporary return values for testing:
-        if (username.equals("deadbeef")&&password.equals("deadbeef")){
-            return new RegisteredProfile(0xDEAD_BEEF, "dead beef", "Local butchery, butcheryway 666 Butchery City", "37359285", "dead@beef.com", null);
-        }if (username.equals("admin")&&password.equals("admin")){
-            return new RegisteredProfile(0xDEAD_BEF0, "Admin", "Wherever Admin lives", "12121212", "admin@admin.com", null, ProfileType.ADMIN);
+        // temperary
+
+        RegisteredProfile[] registered = ourDatabase.SelectUsers();
+
+        if (registered == null)
+            return null;
+
+        System.out.print("Test: \r\n");
+        // Better options to get it done, but it's a project.
+        for( RegisteredProfile profile : registered )
+        {
+            System.out.print("Found : "+ profile.toString());
+
+
+            if( profile.getUsername().equals( username ) &&
+                profile.getPassword().equals( password ) )
+            {
+                return profile;
+            }
         }
-        if (username.equals("deafface")&&password.equals("deafface")){
-            return new RegisteredProfile(0xDEAF_FACE, "deaf face", "SilentStreet 15, Silent Hill", "37360749", "deaf@face.org", null);
-        }
+
         return null;
     }
 

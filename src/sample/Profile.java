@@ -12,11 +12,16 @@ public class Profile {
     private ProfileType type;
     private int profileID; // One could imagine this ID is stored client side while client is a visitor. To allow revisits.
 
-    public Profile(int profileID, ProfileType type){
+    public Profile( int profileID, ProfileType type ){
         this.type = type;
         this.profileID = profileID;
         cart = new ProductList();
         wishlist = new ArrayList<Product>();
+    }
+
+    public void setType(ProfileType type)
+    {
+        this.type = type;
     }
 
     /**

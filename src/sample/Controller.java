@@ -29,6 +29,8 @@ public class Controller implements Initializable{
     public Label loggedInLabel;
 
     public Button login;
+    public Button logout;
+
     public Button signUp;
     public PasswordField signPassword;
     public PasswordField signRepPassword;
@@ -36,19 +38,18 @@ public class Controller implements Initializable{
     public TextField signEmail;
     public TextField signName;
     public TextField signPhone;
-
     public TextArea signAddress;
+
     public TableView<Product> shopTable;
     public TableColumn shopListNameCol;
     public TableColumn shopListPriceCol;
-
     public TableColumn shopListCategoryCol;
+
     public TextField addProductName;
     public TextField addProductCategory;
     public TextField addProductID;
     public Button addProductSubmit;
     public TextField addProductPrice;
-
 
     private Webshop webshop;
 
@@ -128,8 +129,21 @@ public class Controller implements Initializable{
             signAddress.setBackground(new Background(new BackgroundFill(Paint.valueOf(pink),null,null)));
             isProfileValid = false;
         }
-        if (isProfileValid){
-            System.out.println(webshop.register(signUsername.getText(), signPassword.getText(), new RegisteredProfile(0,signName.getText(),signAddress.getText(),signPhone.getText(),signEmail.getText(), null)));
+        if ( isProfileValid )
+        {
+             System.out.println(
+                     webshop.register(
+                             signUsername.getText(),
+                             signPassword.getText(),
+                             new RegisteredProfile(0,
+                                     signName.getText(),
+                                     signUsername.getText(),
+                                     signPassword.getText(),
+                                     signAddress.getText(),
+                                     signPhone.getText(),
+                                     signEmail.getText() )
+                     )
+             );
         }
     }
 
@@ -152,7 +166,16 @@ public class Controller implements Initializable{
         }
     }
 
+    @FXML
+    void logout(ActionEvent ae)
+    {
+        Boolean loggedout = webshop.logout();
 
+        if(loggedout)
+            topLabel.setText("Successfully logout");
+    }
+
+    @FXML
     public void addProduct(ActionEvent event) {
         if (addProductID.getText().matches("\\d*")){
             if (addProductPrice.getText().matches("(\\d+)[.,](\\d{1,2})")){

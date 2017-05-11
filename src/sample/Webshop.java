@@ -33,6 +33,16 @@ public class Webshop {
         return false;
     }
 
+    public boolean logout()
+    {
+        loggedInProfile = null;
+
+        if(loggedInProfile == null)
+            return true;
+
+        return false;
+    }
+
     /**
      * Attempts to register a profile with the given credentials.
      * @param username The username to register.
