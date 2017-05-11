@@ -55,6 +55,10 @@ public class Webshop {
         System.out.println("if (username.equals(\""+username+"\")&&password.equals(\""+password+"\")){\n" +
                 "            return new RegisteredProfile(0x00000000, \""+p.getName()+"\", \""+p.getAddress()+"\", \""+p.getPhone()+"\", \""+p.getPhone()+"\", null);\n" +
                 "        }");
+
+        dbm.RegisterProfile(p, username, password);
+
+
         return true;
     }
 

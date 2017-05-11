@@ -67,9 +67,13 @@ public class DatabaseManager
      * @param password The password of the profile.
      * @return True if the operation was successful, false otherwise.
      */
-    public boolean RegisterProfile(RegisteredProfile profile, String username, String password){
+    public boolean RegisterProfile(RegisteredProfile profile, String username, String password)
+    {
          //Remember to check for username and password validity.
-        throw new UnsupportedOperationException("Not yet implemented");
+        profile.setUsername(username);
+        profile.setPassword(password);
+
+        return ourDatabase.InsertProfile(profile);
     }
 
     /**
