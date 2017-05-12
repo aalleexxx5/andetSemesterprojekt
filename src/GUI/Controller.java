@@ -24,6 +24,7 @@ public class Controller implements Initializable{
     private static String lightPink = "ffcccc";
     private static String pink = "ffaaaa";
     private static String white = "ffffff";
+    private static String lightGreen = "ccffcc";
 
     public Label topLabel;
     public PasswordField password;
@@ -75,7 +76,7 @@ public class Controller implements Initializable{
     @FXML
     void emailVerification(KeyEvent e){
         if (signEmail.getText().matches("(\\w+)@(\\w+)\\.(\\w+)")){
-            signEmail.setBackground(new Background(new BackgroundFill(Paint.valueOf("ccffcc"),null,null)));
+            signEmail.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightGreen),null,null)));
         }
     }
 
