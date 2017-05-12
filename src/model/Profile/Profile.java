@@ -1,4 +1,8 @@
-package sample;
+package model.Profile;
+
+import model.Product.Product;
+import model.Product.ProductList;
+import model.serviceMannager.ProfileType;
 
 import java.util.ArrayList;
 

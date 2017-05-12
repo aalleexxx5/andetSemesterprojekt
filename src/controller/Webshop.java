@@ -1,5 +1,11 @@
-package sample;
+package controller;
 
+import model.Product.Product;
+import model.Product.ProductCatalogue;
+import model.Profile.Profile;
+import model.Profile.RegisteredProfile;
+import model.serviceMannager.DatabaseManager;
+import model.serviceMannager.ProfileType;
 
 /**
  * Created by Alex on 08/05/2017.
@@ -7,13 +13,13 @@ package sample;
 public class Webshop {
     private DatabaseManager dbm;
 
-    private RegisteredProfile loggedInProfile;
+    private RegisteredProfile loggedInProfile; //I would love to deprecate this.
     private Profile currentProfile;
 
     private ProductCatalogue productCatalogue;
 
     public Webshop() {
-        currentProfile = new Profile(141,ProfileType.VISITOR);
+        currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
         dbm = new DatabaseManager();
         productCatalogue = new ProductCatalogue(dbm.getProductList());
     }
@@ -33,14 +39,10 @@ public class Webshop {
         return false;
     }
 
-    public boolean logout()
+    public void logout()
     {
         loggedInProfile = null;
-
-        if(loggedInProfile == null)
-            return true;
-
-        return false;
+        currentProfile = new Profile(141,ProfileType.VISITOR);//TEMPORARY
     }
 
     /**
@@ -72,14 +74,6 @@ public class Webshop {
     }
 
     /**
-     * Returns the currently logged in profile.
-     * @return A {@link RegisteredProfile} instance of the currently logged in profile. <code>null</code> if no user is logged in.
-     */
-    public RegisteredProfile getLoggedInProfile() {
-        return loggedInProfile;
-    }
-
-    /**
      * Returns the {@link ProductCatalogue} instance, used for searching products.
      * @return An instance of {@link ProductCatalogue}.
      */
@@ -97,7 +91,21 @@ public class Webshop {
         }
     }
 
+    /**
+     * Returns the currently logged in profile.
+     * @return A {@link RegisteredProfile} instance of the currently logged in profile. <code>null</code> if no user is logged in.
+     */
+    @Deprecated
+    public RegisteredProfile getLoggedInProfile() {
+        return loggedInProfile;
+    }
+
+    /**
+     * Returns the currently logged in profile.
+     * @return A {@link Profile} instance of the currently logged in profile
+     */
     public Profile getCurrentProfile() {
+        if (currentProfile == null) throw new IllegalStateException("Current profile is not allowed to be null!");
         return currentProfile;
     }
 }

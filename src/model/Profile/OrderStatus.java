@@ -1,4 +1,4 @@
-package sample;
+package model.Profile;
 
 /**
  * Created by Alex on 09/05/2017.

@@ -1,4 +1,6 @@
-package sample;
+package model.serviceMannager;
+
+import model.Profile.RegisteredProfile;
 
 /**
  * Created by madsen on 5/10/17.

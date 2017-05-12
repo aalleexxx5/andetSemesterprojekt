@@ -1,4 +1,7 @@
-package sample;
+package model.serviceMannager;
+
+import model.Product.Product;
+import model.Profile.RegisteredProfile;
 
 import java.util.ArrayList;
 
@@ -17,8 +20,7 @@ public class DatabaseManager
      * @param password The password of the profile.
      * @return A {@link RegisteredProfile} if one with the gived credentials exists in the database. null otherwise.
      */
-    RegisteredProfile login( String username, String password )
-    {
+    public RegisteredProfile login( String username, String password ) {
         /*
          Remember to escape username and password when changing to Database Quarry.
          If you do not know what escaping is or how to do it, ask Alex or Google.
@@ -27,7 +29,7 @@ public class DatabaseManager
          Good luck.
           */
 
-        // temperary
+        // temporary
 
         RegisteredProfile[] registered = ourDatabase.SelectUsers();
 
@@ -67,8 +69,7 @@ public class DatabaseManager
      * @param password The password of the profile.
      * @return True if the operation was successful, false otherwise.
      */
-    public boolean RegisterProfile(RegisteredProfile profile, String username, String password)
-    {
+    public boolean RegisterProfile(RegisteredProfile profile, String username, String password) {
          //Remember to check for username and password validity.
         profile.setUsername(username);
         profile.setPassword(password);
@@ -84,9 +85,13 @@ public class DatabaseManager
         //Temp test value:
 
         ArrayList<Product> list = new ArrayList<>();
-        list.add(new Product("tablefan","electronics", 345, 244.95));
+        list.add(new Product("fan","electronics", 345, 244.95));
+        list.add(new Product("tablefan","electronics", 346, 245.95));
         list.add(new Product("monitor", "monitors", 423, 1499.95));
         list.add(new Product("super tablefan","electronics", 346, 449.99));
+        list.add(new Product("standing fan","electronics", 120, 499.95));
+        list.add(new Product("mini monitor","monitors", 424, 526.45));
+        list.add(new Product("LED TV","monitors", 425, 2499.95));
         return list;
         //throw new UnsupportedOperationException("Not yet implemented");
     }

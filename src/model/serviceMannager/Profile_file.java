@@ -1,4 +1,4 @@
-package sample;
+package model.serviceMannager;
 
 import java.io.Serializable;
 

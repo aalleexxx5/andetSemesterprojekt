@@ -1,8 +1,7 @@
-package sample;
+package GUI;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
+import model.Product.Product;
+import model.Profile.RegisteredProfile;
+import controller.Webshop;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -131,17 +133,7 @@ public class Controller implements Initializable{
         }
         if ( isProfileValid )
         {
-             System.out.println(
-                     webshop.register(
-                             signUsername.getText(),
-                             signPassword.getText(),
-                             new RegisteredProfile(0,
-                                     signName.getText(),
-                                     signUsername.getText(),
-                                     signPassword.getText(),
-                                     signAddress.getText(),
-                                     signPhone.getText(),
-                                     signEmail.getText() )
+             System.out.println(webshop.register(signUsername.getText(), signPassword.getText(), new RegisteredProfile(0, signName.getText(), signUsername.getText(), signPassword.getText(), signAddress.getText(), signPhone.getText(), signEmail.getText() )
                      )
              );
         }
@@ -167,18 +159,14 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    void logout(ActionEvent ae)
-    {
-        Boolean loggedout = webshop.logout();
-
-        if(loggedout)
-            topLabel.setText("Successfully logout");
+    void logout(ActionEvent ae) {
+        webshop.logout();
     }
 
     @FXML
     public void addProduct(ActionEvent event) {
         if (addProductID.getText().matches("\\d*")){
-            if (addProductPrice.getText().matches("(\\d+)[.,](\\d{1,2})")){
+                if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")){
                 webshop.addProduct(new Product(addProductName.getText(),addProductCategory.getText(),Integer.valueOf(addProductID.getText()),Double.valueOf(addProductPrice.getText())));
             }else{
                 System.out.println("Product Price is not formatted correctly.");
