@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class DatabaseManager {
 	Database ourDatabase = new File_database();
-
+	
 	/**
 	 * Attempts to log a user in. The database will return the profile data if username and password matches a profile in the database.
 	 *
@@ -22,35 +22,35 @@ public class DatabaseManager {
 	 */
 	public RegisteredProfile login(String username, String password) {
 		/*
-         Remember to escape username and password when changing to Database Quarry.
+		 Remember to escape username and password when changing to Database Quarry.
          If you do not know what escaping is or how to do it, ask Alex or Google.
          If you do not know how to implement it, try with a prepaired statement.
          Test if it works with what's inside the diamond brackets as username and password <' OR '1'='1' -->
          Good luck.
           */
-
+		
 		// temporary
-
+		
 		RegisteredProfile[] registered = ourDatabase.SelectUsers();
-
+		
 		if (registered == null)
 			return null;
-
+		
 		System.out.print("Test: \r\n");
 		// Better options to get it done, but it's a project.
 		for (RegisteredProfile profile : registered) {
 			System.out.print("Found : " + profile.toString());
-
-
+			
+			
 			if (profile.getUsername().equals(username) &&
 					profile.getPassword().equals(password)) {
 				return profile;
 			}
 		}
-
+		
 		return null;
 	}
-
+	
 	/**
 	 * Returns whether a username is in use in the database.
 	 *
@@ -60,7 +60,7 @@ public class DatabaseManager {
 	public boolean userExists(String username) {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-
+	
 	/**
 	 * Registers a user profile Returns true if successful
 	 *
@@ -73,10 +73,10 @@ public class DatabaseManager {
 		//Remember to check for username and password validity.
 		profile.setUsername(username);
 		profile.setPassword(password);
-
+		
 		return ourDatabase.InsertProfile(profile);
 	}
-
+	
 	/**
 	 * Returns the full list of all products.
 	 *
@@ -84,7 +84,7 @@ public class DatabaseManager {
 	 */
 	public ArrayList<Product> getProductList() {
 		//Temp test value:
-
+		
 		ArrayList<Product> list = new ArrayList<>();
 		list.add(new Product("fan", "electronics", 345, 244.95));
 		list.add(new Product("tablefan", "electronics", 346, 245.95));
@@ -96,7 +96,7 @@ public class DatabaseManager {
 		return list;
 		//throw new UnsupportedOperationException("Not yet implemented");
 	}
-
+	
 	/**
 	 * Add a product to the database
 	 *
@@ -105,7 +105,7 @@ public class DatabaseManager {
 	public boolean addProduct(Product p) {
 		throw new UnsupportedOperationException("Not implemented yet.");
 	}
-
+	
 	/**
 	 * Remove a product from the database
 	 *
@@ -114,7 +114,7 @@ public class DatabaseManager {
 	public boolean removeProduct(Product p) {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-
+	
 	/**
 	 * Returns all valid product categories.
 	 *
@@ -123,9 +123,9 @@ public class DatabaseManager {
 	public String[] getProductCategories() {
 		//Temp return value for testing:
 		return new String[]{"monitors", "electronics"};
-
+		
 	}
-
+	
 	public void unregisterProfile(RegisteredProfile profile) {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}

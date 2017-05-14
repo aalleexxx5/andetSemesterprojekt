@@ -5,8 +5,8 @@ package model.Profile;
  * An enumeration of the order status.
  */
 public enum OrderStatus {
-    AWAITING_PAYMENT,
-    PAID,
-    IN_TRANSIT,
-    RECIEVED
+	AWAITING_PAYMENT,
+	PAID,
+	IN_TRANSIT,
+	RECIEVED
 }
