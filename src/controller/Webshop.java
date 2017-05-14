@@ -58,7 +58,7 @@ public class Webshop {
                 "            return new RegisteredProfile(0x00000000, \""+p.getName()+"\", \""+p.getAddress()+"\", \""+p.getPhone()+"\", \""+p.getPhone()+"\", null);\n" +
                 "        }");
 
-        dbm.RegisterProfile(p, username, password);
+        dbm.registerProfile(p, username, password);
 
 
         return true;
