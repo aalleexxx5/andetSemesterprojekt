@@ -38,6 +38,7 @@ public class DatabaseManagerTest {
 	public static void cleanupDatabase() {
 		dbm.unregisterProfile(profile);
 		dbm.unregisterProfile(profile2);
+
 	}
 	
 	@org.junit.Test
