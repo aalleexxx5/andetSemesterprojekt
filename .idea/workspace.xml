@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56d936fe-1620-4585-9d0e-2b76b4bf3aea" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/description.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/model/serviceMannager/DatabaseManagerTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/model/serviceMannager/File_database.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/controller/Webshop.java" afterPath="$PROJECT_DIR$/src/Controller/Webshop.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/Product/Product.java" afterPath="$PROJECT_DIR$/src/Model/Product/Product.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/Product/ProductCatalogue.java" afterPath="$PROJECT_DIR$/src/Model/Product/ProductCatalogue.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/Product/ProductList.java" afterPath="$PROJECT_DIR$/src/Model/Product/ProductList.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/Profile/Order.java" afterPath="$PROJECT_DIR$/src/Model/Profile/Order.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/Profile/OrderStatus.java" afterPath="$PROJECT_DIR$/src/Model/Profile/OrderStatus.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/Profile/Profile.java" afterPath="$PROJECT_DIR$/src/Model/Profile/Profile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/Profile/RegisteredProfile.java" afterPath="$PROJECT_DIR$/src/Model/Profile/RegisteredProfile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/serviceMannager/Database.java" afterPath="$PROJECT_DIR$/src/Model/Database/Database.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/serviceMannager/DatabaseManager.java" afterPath="$PROJECT_DIR$/src/Model/Database/DatabaseManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/serviceMannager/ProfileType.java" afterPath="$PROJECT_DIR$/src/Model/Database/ProfileType.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/model/serviceMannager/Profile_file.java" afterPath="$PROJECT_DIR$/src/Model/Database/Profile_file.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/andetSemesterprojekt.iml" afterPath="$PROJECT_DIR$/andetSemesterprojekt.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Model/Database/PostgresDatabase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,7 +15,46 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="PostgresDatabase.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Model/Database/PostgresDatabase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="266">
+              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding>
+                <element signature="e#206#207#0" expanded="true" />
+                <element signature="e#234#235#0" expanded="true" />
+                <element signature="e#306#307#0" expanded="true" />
+                <element signature="e#334#335#0" expanded="true" />
+                <element signature="e#603#604#0" expanded="true" />
+                <element signature="e#630#631#0" expanded="true" />
+                <element signature="e#707#708#0" expanded="true" />
+                <element signature="e#754#755#0" expanded="true" />
+                <element signature="e#816#817#0" expanded="true" />
+                <element signature="e#863#864#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Database/Database.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="25" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -59,6 +74,7 @@
         <option value="$PROJECT_DIR$/src/Model/Service_Mannager/DatabaseManager.java" />
         <option value="$PROJECT_DIR$/src/Model/Service_Manager/Database.java" />
         <option value="$PROJECT_DIR$/src/Model/Database/Database.java" />
+        <option value="$PROJECT_DIR$/src/Model/Database/PostgresDatabase.java" />
       </list>
     </option>
   </component>
@@ -67,6 +83,9 @@
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="784" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -432,6 +451,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -447,7 +467,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32937685" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -499,9 +519,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Database/Database.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        <state relative-caret-position="136">
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="25" selection-end-column="54" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Database/PostgresDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#206#207#0" expanded="true" />
+            <element signature="e#234#235#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
+            <element signature="e#334#335#0" expanded="true" />
+            <element signature="e#603#604#0" expanded="true" />
+            <element signature="e#630#631#0" expanded="true" />
+            <element signature="e#707#708#0" expanded="true" />
+            <element signature="e#754#755#0" expanded="true" />
+            <element signature="e#816#817#0" expanded="true" />
+            <element signature="e#863#864#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
