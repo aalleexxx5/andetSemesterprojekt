@@ -20,10 +20,9 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 	//TODO search with string.contains
-	private static String lightPink = "ffcccc";
-	private static String pink = "ffaaaa";
-	private static String white = "ffffff";
-	private static String lightGreen = "ccffcc";
+	private static String INVALID_TEXT_FIELD_COLOR = "ffcccc";
+	private static String DEFAULT_TEXT_FIELD_COLOR = "ffffff";
+	private static String APPROVED_TEXT_FIELD_COLOR = "ccffcc";
 	public Label topLabel;
 	public PasswordField password;
 	public TextField username;
@@ -48,7 +47,7 @@ public class Controller implements Initializable {
 	public Button addProductSubmit;
 	public TextField addProductPrice;
 	private Webshop webshop;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		webshop = new Webshop();
@@ -58,77 +57,47 @@ public class Controller implements Initializable {
 		shopListCategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 		shopTable.setItems(productList);
 	}
-	
+
+	@FXML
+	public void addProduct(ActionEvent event) {
+		if (addProductID.getText().matches("\\d*")) {
+			if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
+				webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(), Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
+			} else {
+				System.out.println("Product Price is not formatted correctly.");
+			}
+		} else {
+			System.out.println("Product ID is not formatted correctly");
+		}
+	}
+
 	/**
-	 * Verifies the email address from a regular expression.
-	 * A valid email address has more than 0 non-whitespace characters, followed by an @-sign, followed by more than 0 non-whitespace characters,
-	 * followed by a dot, followed by more than 0 non-whitespace characters.
-	 * The function runs on a key typed event in the email field, and turns the field a pale green, email is valid.
-	 *
+	 * The function runs on a key typed event in the email field, and turns the field a pale green, when email is valid.
 	 * @param e The key event triggering the function.
 	 */
 	@FXML
 	void emailVerification(KeyEvent e) {
-		if (signEmail.getText().matches("(\\w+)@(\\w+)\\.(\\w+)")) {
-			signEmail.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightGreen), null, null)));
+		if (validateAndPaintEmailField()){
+			recolorTextInput(signEmail, APPROVED_TEXT_FIELD_COLOR);
 		}
 	}
-	
+
 	/**
-	 * Verifies all text fields concerned with the sign up process. An invalid field will be made red, to alert the user of an error.
-	 * TODO There is currently no error message displayed.
-	 * A valid user has:
-	 * A password longer than 8 characters.
-	 * A Repeat password matching the password field.
-	 * A unique username
-	 * A valid email, using the same validation as emailVerification
-	 * A phone number consisting of exactly 8 digits.
-	 * A non-empty name and address field.
 	 * If all fields are valid, the profile will be created. Whether the creation was successful is currently be printed through sout.
+	 * TODO There is currently no error message displayed.
 	 *
 	 * @param e The event triggering the function.
 	 */
 	@FXML
 	void signUp(ActionEvent e) {
-		boolean isProfileValid = true;
-		if (signPassword.getText().length() < 8) {
-			signPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink), null, null)));
-			isProfileValid = false;
-		}
-		if (signPassword.getText().equals(signRepPassword.getText())) {
-			signRepPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(white), null, null)));
-			signPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(white), null, null)));
-		} else {
-			signRepPassword.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink), null, null)));
-			isProfileValid = false;
-		}
-		if (signUsername.getText().isEmpty() || webshop.usernameExists(username.getText())) {
-			signUsername.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink), null, null)));
-			isProfileValid = false;
-		}
-		if (!signEmail.getText().matches("(\\w+)@(\\w+)\\.(\\w+)")) {//(\w+(\.\w+)*)@(\w+)\.(\w+)
-			signEmail.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink), null, null)));
-			isProfileValid = false;
-		}
-		if (signName.getText().isEmpty()) {
-			signName.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink), null, null)));
-			isProfileValid = false;
-		}
-		if (!signPhone.getText().matches("\\d{8}")) {
-			signPhone.setBackground(new Background(new BackgroundFill(Paint.valueOf(lightPink), null, null)));
-			isProfileValid = false;
-		}
-		if (signAddress.getText().isEmpty()) {
-			signAddress.setBackground(new Background(new BackgroundFill(Paint.valueOf(pink), null, null)));
-			isProfileValid = false;
-		}
-		if (isProfileValid) {
-			System.out.println(webshop.register(signUsername.getText(), signPassword.getText(),
-					new RegisteredProfile(0, signName.getText(), signUsername.getText(), signPassword.getText(),
-							signAddress.getText(), signPhone.getText(), signEmail.getText())));
+		if (isProfileFieldsValid()) {
+			RegisteredProfile profileToRegister = new RegisteredProfile(
+					0, signName.getText(), signUsername.getText(), signPassword.getText(),
+					signAddress.getText(), signPhone.getText(), signEmail.getText());
+			System.out.println(webshop.register(signUsername.getText(), signPassword.getText(), profileToRegister));
 		}
 	}
-	
+
 	/**
 	 * Attempts to find and log in the user from the credentials inserted in the username and password field.
 	 * The label notifies the user if the login was successful.
@@ -144,22 +113,120 @@ public class Controller implements Initializable {
 		}
 		loggedInLabel.setText("Logged in as: " + webshop.getCurrentProfile().getType());
 	}
-	
+
 	@FXML
 	void logout(ActionEvent ae) {
 		webshop.logout();
 	}
-	
-	@FXML
-	public void addProduct(ActionEvent event) {
-		if (addProductID.getText().matches("\\d*")) {
-			if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
-				webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(), Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
-			} else {
-				System.out.println("Product Price is not formatted correctly.");
-			}
-		} else {
-			System.out.println("Product ID is not formatted correctly");
+
+	/**
+	 * Returns whether the text in all input fields is valid.
+	 *
+	 * @return true, if all text fields has valid information.
+	 */
+	private boolean isProfileFieldsValid() {
+		return validateAndPaintPasswordFields() && validateAndPaintUsernameField() && validateAndPaintNameField() &&
+				validateAndPaintEmailField() && validateAndPaintPhoneField() && validateAndPaintAddressField();
+	}
+
+	/**
+	 * Validates the password fields, and paints them red if invalid.
+	 * Valid password fields has more than 9 characters, contains the same text.
+	 *
+	 * @return Whether the password fields has valid text.
+	 */
+	private boolean validateAndPaintPasswordFields() {
+		if (signPassword.getText().length() < 8) {
+			recolorTextInput(signPassword, INVALID_TEXT_FIELD_COLOR);
+			return false;
 		}
+		if (signPassword.getText().equals(signRepPassword.getText())) {
+			recolorTextInput(signPassword, DEFAULT_TEXT_FIELD_COLOR);
+			recolorTextInput(signRepPassword, DEFAULT_TEXT_FIELD_COLOR);
+			return true;
+		} else {
+			recolorTextInput(signRepPassword, INVALID_TEXT_FIELD_COLOR);
+			return true;
+		}
+	}
+
+	/**
+	 * Validates the username field, and paints it red if invalid.
+	 * A valid username field is not empty, and does not already exist in the system.
+	 *
+	 * @return Whether the username field has valid text.
+	 */
+	private boolean validateAndPaintUsernameField() {
+		if (signUsername.getText().isEmpty() || webshop.usernameExists(username.getText())) {
+			recolorTextInput(signUsername, INVALID_TEXT_FIELD_COLOR);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the email field, and paints it red if invalid.
+	 * A valid email fiels has a valid email address entered.
+	 *
+	 * @return Whether the email field has valid text.
+	 */
+	private boolean validateAndPaintEmailField() {
+		if (!signEmail.getText().matches("(\\w+)@(\\w+)\\.(\\w+)")) {//(\w+(\.\w+)*)@(\w+)\.(\w+)
+			recolorTextInput(signEmail, INVALID_TEXT_FIELD_COLOR);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the name field, and paints it red if invalid.
+	 * a valid name filed is not empty.
+	 *
+	 * @return Whether the name field has valid text.
+	 */
+	private boolean validateAndPaintNameField() {
+		if (signName.getText().isEmpty()) {
+			recolorTextInput(signName, INVALID_TEXT_FIELD_COLOR);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the Phone field, and paints it red if invalid.
+	 * a valid phone field has no more or less then 8 digits.
+	 *
+	 * @return Whether the phone field has valid text.
+	 */
+	private boolean validateAndPaintPhoneField() {
+		if (!signPhone.getText().matches("\\d{8}")) {
+			recolorTextInput(signPhone, INVALID_TEXT_FIELD_COLOR);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Validates the Address field and paints it red if invalid.
+	 * A valid address is not empty.
+	 *
+	 * @return Whether the address field has valid text.
+	 */
+	private boolean validateAndPaintAddressField() {
+		if (signAddress.getText().isEmpty()) {
+			recolorTextInput(signAddress, INVALID_TEXT_FIELD_COLOR);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Recolors a text input field.
+	 *
+	 * @param textInput the input field to recolor.
+	 * @param hexColor  The color value to paint field.
+	 */
+	private void recolorTextInput(TextInputControl textInput, String hexColor) {
+		textInput.setBackground(new Background(new BackgroundFill(Paint.valueOf(hexColor), null, null)));
 	}
 }

@@ -83,12 +83,12 @@ public class DatabaseManagerTest {
 		assertTrue(profile.getEmail().equals(dbm2.login(uname, pword).getEmail()));
 	}
 	
-	@org.junit.Test
+	@org.junit.Test(timeout = 500)
 	public void getProductList() throws Exception {
 		//The returned products from the database should not be null.
 		assertNotNull(dbm.getProductList());
 	}
-	
+
 	@org.junit.Test
 	public void addProduct() throws Exception {
 		// a product should be registered
@@ -98,7 +98,7 @@ public class DatabaseManagerTest {
 		// a product with an invalid category should not be registered.
 		assertFalse(dbm.addProduct(product3));
 	}
-	
+
 	@org.junit.Test
 	public void removeProduct() throws Exception {
 		//a registered product should be removed
@@ -106,10 +106,11 @@ public class DatabaseManagerTest {
 		//removing a non registered product should return false
 		assertFalse(dbm.removeProduct(product));
 	}
-	
-	@org.junit.Test
-	public void getProductCategories() throws Exception {
-		//The returned product categories should not be null
+
+
+
+	@org.junit.Test(timeout = 500)
+	public void getProductCategoriesShouldNotReturnNull() throws Exception {
 		assertNotNull(dbm.getProductCategories());
 	}
 }
