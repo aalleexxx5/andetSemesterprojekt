@@ -1,4 +1,4 @@
-package model.Product;
+package Model.Product;
 
 /**
  * Created by Alex on 08/05/2017.
