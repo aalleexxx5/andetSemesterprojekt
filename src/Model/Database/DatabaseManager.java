@@ -1,7 +1,7 @@
-package model.serviceMannager;
+package Model.Database;
 
-import model.Product.Product;
-import model.Profile.RegisteredProfile;
+import Model.Product.Product;
+import Model.Profile.RegisteredProfile;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
 public class DatabaseManager {
-	Database ourDatabase = new File_database();
+	Database ourDatabase = null;
 	
 	/**
 	 * Attempts to log a user in. The database will return the profile data if username and password matches a profile in the database.
