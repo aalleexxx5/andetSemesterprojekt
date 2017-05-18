@@ -1,4 +1,4 @@
-package model.Product;
+package model.product;
 
 /**
  * Created by Alex on 08/05/2017.
@@ -6,7 +6,7 @@ package model.Product;
 public class Product {
 	private String name;
 	private String category;
-	//Product description...
+	//product description...
 	private int productID;
 	private double price; //TODO: Decimal type instead of a double. To avoid floating point math errors
 	
@@ -38,7 +38,7 @@ public class Product {
 	/**
 	 * Returns the price of the product.
 	 *
-	 * @return Product price.
+	 * @return product price.
 	 */
 	public double getPrice() {
 		return price;

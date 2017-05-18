@@ -1,6 +1,6 @@
 package model.serviceMannager;
 
-import model.Profile.RegisteredProfile;
+import model.profile.RegisteredProfile;
 
 import java.io.*;
 import java.io.File;

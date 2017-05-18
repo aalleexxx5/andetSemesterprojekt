@@ -1,7 +1,5 @@
-package model.Profile;
+package model.profile;
 
-import model.Profile.Order;
-import model.Profile.Profile;
 import model.serviceMannager.ProfileType;
 
 /**

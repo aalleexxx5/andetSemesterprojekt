@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,8 +11,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
-import model.Product.Product;
-import model.Profile.RegisteredProfile;
+import model.product.Product;
+import model.profile.RegisteredProfile;
 import controller.Webshop;
 
 import java.net.URL;
@@ -64,10 +64,10 @@ public class Controller implements Initializable {
 			if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
 				webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(), Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
 			} else {
-				System.out.println("Product Price is not formatted correctly.");
+				System.out.println("product Price is not formatted correctly.");
 			}
 		} else {
-			System.out.println("Product ID is not formatted correctly");
+			System.out.println("product ID is not formatted correctly");
 		}
 	}
 

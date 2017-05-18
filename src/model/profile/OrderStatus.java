@@ -1,4 +1,4 @@
-package model.Profile;
+package model.profile;
 
 /**
  * Created by Alex on 09/05/2017.

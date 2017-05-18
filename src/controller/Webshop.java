@@ -1,9 +1,9 @@
 package controller;
 
-import model.Product.Product;
-import model.Product.ProductCatalogue;
-import model.Profile.Profile;
-import model.Profile.RegisteredProfile;
+import model.product.Product;
+import model.product.ProductCatalogue;
+import model.profile.Profile;
+import model.profile.RegisteredProfile;
 import model.serviceMannager.DatabaseManager;
 import model.serviceMannager.ProfileType;
 
@@ -86,7 +86,7 @@ public class Webshop {
 		if (currentProfile.getType() == ProfileType.ADMIN) {
 			System.out.println("Placeholder product add");
 			productCatalogue.addProduct(p);
-			System.out.println("list.add(new Product(\"" + p.getName() + "\",\"" + p.getCategory() + "\", " + p.getProductID() + ", " + p.getPrice() + "));\n");
+			System.out.println("list.add(new product(\"" + p.getName() + "\",\"" + p.getCategory() + "\", " + p.getProductID() + ", " + p.getPrice() + "));\n");
 		} else {
 			System.out.println("Sorry, you are not logged in as an admin, and can not add new products.");
 		}

@@ -1,10 +1,9 @@
 package model.serviceMannager;
 
-import model.Product.Product;
-import model.Profile.RegisteredProfile;
+import model.product.Product;
+import model.profile.RegisteredProfile;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 
 import static org.junit.Assert.*;
 

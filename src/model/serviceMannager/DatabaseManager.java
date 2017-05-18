@@ -1,7 +1,7 @@
 package model.serviceMannager;
 
-import model.Product.Product;
-import model.Profile.RegisteredProfile;
+import model.product.Product;
+import model.profile.RegisteredProfile;
 
 import java.util.ArrayList;
 
