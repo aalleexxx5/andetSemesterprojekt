@@ -11,9 +11,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
-import Model.Product.Product;
-import Model.Profile.RegisteredProfile;
-import Controller.Webshop;
+import model.Product.Product;
+import model.Profile.RegisteredProfile;
+import controller.Webshop;
 
 import java.net.URL;
 import java.util.ResourceBundle;

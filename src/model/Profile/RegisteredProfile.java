@@ -1,6 +1,8 @@
-package Model.Profile;
+package model.Profile;
 
-import Model.Database.ProfileType;
+import model.Profile.Order;
+import model.Profile.Profile;
+import model.serviceMannager.ProfileType;
 
 /**
  * Created by Alex on 08/05/2017.

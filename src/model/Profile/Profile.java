@@ -1,8 +1,8 @@
-package Model.Profile;
+package model.Profile;
 
-import Model.Product.Product;
-import Model.Product.ProductList;
-import Model.Database.ProfileType;
+import model.Product.Product;
+import model.Product.ProductList;
+import model.serviceMannager.ProfileType;
 
 import java.util.ArrayList;
 

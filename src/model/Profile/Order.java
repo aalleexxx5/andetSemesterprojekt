@@ -1,7 +1,7 @@
-package Model.Profile;
+package model.Profile;
 
-import Model.Product.Product;
-import Model.Product.ProductList;
+import model.Product.Product;
+import model.Product.ProductList;
 
 import java.util.Calendar;
 import java.util.HashMap;

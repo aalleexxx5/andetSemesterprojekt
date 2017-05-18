@@ -1,6 +1,6 @@
-package Model.Database;
+package model.serviceMannager;
 
-import Model.Profile.RegisteredProfile;
+import model.Profile.RegisteredProfile;
 
 /**
  * Created by madsen on 5/10/17.

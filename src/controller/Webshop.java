@@ -1,11 +1,11 @@
-package Controller;
+package controller;
 
-import Model.Product.Product;
-import Model.Product.ProductCatalogue;
-import Model.Profile.Profile;
-import Model.Profile.RegisteredProfile;
-import Model.Database.DatabaseManager;
-import Model.Database.ProfileType;
+import model.Product.Product;
+import model.Product.ProductCatalogue;
+import model.Profile.Profile;
+import model.Profile.RegisteredProfile;
+import model.serviceMannager.DatabaseManager;
+import model.serviceMannager.ProfileType;
 
 /**
  * Created by Alex on 08/05/2017.
