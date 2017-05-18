@@ -1,4 +1,4 @@
-package model.serviceMannager;
+package Model.Database;
 
 /**
  * Created by Alex on 08/05/2017.

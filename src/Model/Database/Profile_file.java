@@ -1,4 +1,4 @@
-package model.serviceMannager;
+package Model.Database;
 
 import java.io.Serializable;
 
