@@ -1,7 +1,7 @@
 package model.profile;
 
 import model.product.Product;
-import model.product.ProductList;
+import model.product.Cart;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class Order {
 	/**
 	 * Returns the list of products referenced in this order mapped to the price of the products.
 	 *
-	 * @return A HashMap consisting of a {@link ProductList} mapped to the price, when it item was purchased.
+	 * @return A HashMap consisting of a {@link Cart} mapped to the price, when it item was purchased.
 	 */
 	public HashMap<Product, Double> getProductPriceMap() {
 		return productPriceMap;

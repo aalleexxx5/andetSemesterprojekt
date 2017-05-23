@@ -1,7 +1,7 @@
 package model.profile;
 
 import model.product.Product;
-import model.product.ProductList;
+import model.product.Cart;
 import model.serviceMannager.ProfileType;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Profile {
 	//Session storage of a profile. For a returning visitor to keep his/her cart+wish list stored
-	private ProductList cart;
+	private Cart cart;
 	private ArrayList<Product> wishlist;
 	private ProfileType type;
 	private int profileID; // One could imagine this ID is stored client side while client is a visitor. To allow revisits.
@@ -19,7 +19,7 @@ public class Profile {
 	public Profile(int profileID, ProfileType type) {
 		this.type = type;
 		this.profileID = profileID;
-		cart = new ProductList();
+		cart = new Cart();
 		wishlist = new ArrayList<Product>();
 	}
 	
@@ -30,9 +30,9 @@ public class Profile {
 	/**
 	 * Returns the cart from the profile
 	 *
-	 * @return A {@link ProductList} containing what the user has added.
+	 * @return A {@link Cart} containing what the user has added.
 	 */
-	public ProductList getCart() {
+	public Cart getCart() {
 		return cart;
 	}
 	

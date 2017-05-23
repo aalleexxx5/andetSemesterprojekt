@@ -5,10 +5,10 @@ import java.util.HashMap;
 /**
  * Created by Alex on 08/05/2017.
  */
-public class ProductList {
+public class Cart {
 	private HashMap<Product, Integer> products;
 	
-	public ProductList() {
+	public Cart() {
 		products = new HashMap<Product, Integer>();
 	}
 	
