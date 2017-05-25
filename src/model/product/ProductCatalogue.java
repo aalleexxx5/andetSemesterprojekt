@@ -19,6 +19,10 @@ public class ProductCatalogue {
 	public void addProduct(Product p) {
 		products.add(p);
 	}
+
+	public ExtraServices[] getExtraServices(Product[] products) {
+		throw new UnsupportedOperationException("Not implemented yet.");
+	}
 	
 	//NOTE search might need to be moved to Database.
 	//TODO: Search goes here

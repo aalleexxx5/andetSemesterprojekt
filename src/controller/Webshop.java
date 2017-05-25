@@ -1,5 +1,6 @@
 package controller;
 
+import model.product.ExtraServices;
 import model.product.Product;
 import model.product.ProductCatalogue;
 import model.profile.Profile;
@@ -110,5 +111,9 @@ public class Webshop {
 	public Profile getCurrentProfile() {
 		if (currentProfile == null) throw new IllegalStateException("Current profile is not allowed to be null!");
 		return currentProfile;
+	}
+
+	public ExtraServices[] showExtraServices() {
+		throw new UnsupportedOperationException();
 	}
 }
