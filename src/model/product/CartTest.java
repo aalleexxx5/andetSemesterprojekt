@@ -105,8 +105,10 @@ public class CartTest {
 
     @Test
     public void getProductMap() throws Exception {
-        Cart cartUnderTest = generateCartWithProducts();
-        assertNotNull("There ust be products to get map", cartUnderTest.getProductMap());
+        Cart cartWithProducts = generateCartWithProducts();
+        assertNotNull("The product map must not be null", cartWithProducts.getProductMap());
+        Cart emptyCart = generateEmptyCart();
+        assertNotNull("The product map returned must never be null", emptyCart.getProductMap());
     }
 
 }

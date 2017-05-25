@@ -4,8 +4,8 @@ import model.product.Product;
 import model.product.ProductCatalogue;
 import model.profile.Profile;
 import model.profile.RegisteredProfile;
-import model.serviceMannager.DatabaseManager;
-import model.serviceMannager.ProfileType;
+import model.serviceManager.DatabaseManager;
+import model.serviceManager.ProfileType;
 
 /**
  * Created by Alex on 08/05/2017.

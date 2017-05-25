@@ -1,4 +1,4 @@
-package model.serviceMannager;
+package model.serviceManager;
 
 import model.product.Product;
 import model.profile.RegisteredProfile;

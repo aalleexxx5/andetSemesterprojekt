@@ -1,6 +1,6 @@
 package model.profile;
 
-import model.serviceMannager.ProfileType;
+import model.serviceManager.ProfileType;
 
 /**
  * Created by Alex on 08/05/2017.
