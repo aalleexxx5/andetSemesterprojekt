@@ -84,11 +84,17 @@ public class CartTest {
         }
         Cart cartWithOneProduct = generateCartWithOneProduct();
         Product productToDecrement1 = cartWithOneProduct.getProducts()[0];
-        int startingAmount = cartWithOneProduct.getProducts().length;
+        int startingAmount = cartWithOneProduct.getProductMap().get(productToDecrement1);
         int amountToRemove = 1;
         cartWithOneProduct.decrementProduct(productToDecrement1, amountToRemove);
         assertTrue("Cart must decrement the product",
-                cartWithOneProduct.getProducts().length==startingAmount-amountToRemove);
+                cartWithOneProduct.getProductMap().get(productToDecrement1)==startingAmount-amountToRemove);
+
+        Product productToRemove = cartWithOneProduct.getProducts()[0];
+        int ProductAmount = cartWithOneProduct.getProductMap().get(productToRemove);
+        cartWithOneProduct.decrementProduct(productToRemove, ProductAmount);
+        assertTrue("Cart must remove a product when decrementing below 1 amount",
+                cartWithOneProduct.getProducts().length==0);
 
 
 
@@ -105,10 +111,8 @@ public class CartTest {
 
     @Test
     public void getProductMap() throws Exception {
-        Cart cartWithProducts = generateCartWithProducts();
-        assertNotNull("The product map must not be null", cartWithProducts.getProductMap());
-        Cart emptyCart = generateEmptyCart();
-        assertNotNull("The product map returned must never be null", emptyCart.getProductMap());
+        Cart cartUnderTest = generateCartWithProducts();
+        assertNotNull("There must be products to get map", cartUnderTest.getProductMap());
     }
 
 }
