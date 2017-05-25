@@ -2,7 +2,6 @@ package model.profile;
 
 import model.product.Product;
 import model.product.Cart;
-import model.serviceManager.ProfileType;
 
 import java.util.ArrayList;
 

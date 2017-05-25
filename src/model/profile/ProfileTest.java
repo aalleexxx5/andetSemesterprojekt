@@ -2,7 +2,6 @@ package model.profile;
 
 import model.product.Cart;
 import model.product.Product;
-import model.serviceMannager.ProfileType;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

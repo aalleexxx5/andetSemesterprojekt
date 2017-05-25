@@ -6,7 +6,9 @@ import model.product.ProductCatalogue;
 import model.profile.Profile;
 import model.profile.RegisteredProfile;
 import model.serviceManager.DatabaseManager;
-import model.serviceManager.ProfileType;
+import model.profile.ProfileType;
+
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 08/05/2017.
@@ -113,7 +115,7 @@ public class Webshop {
 		return currentProfile;
 	}
 
-	public ExtraServices[] showExtraServices() {
-		throw new UnsupportedOperationException();
+	public ArrayList<ExtraServices> showExtraServices() {
+		return productCatalogue.getExtraServices(currentProfile.getCart().getProducts());
 	}
 }

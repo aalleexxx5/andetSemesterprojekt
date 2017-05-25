@@ -1,5 +1,7 @@
 package model.serviceManager;
 
+import model.profile.ProfileType;
+
 import java.io.Serializable;
 
 /**

@@ -19,7 +19,7 @@ public class WebshopTest {
     public void showExtraServices() {
         Webshop webshop = new Webshop();
         
-        assertNotNull(webshop.showExtraServices());
+        assertNotNull(webshop.getProductCatalogue().getExtraServices(webshop.getCurrentProfile().getCart().
+		        getProducts()));
     }
-
 }

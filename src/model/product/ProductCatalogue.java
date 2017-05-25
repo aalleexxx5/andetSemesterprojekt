@@ -6,10 +6,18 @@ import java.util.ArrayList;
  * Created by Alex on 08/05/2017.
  */
 public class ProductCatalogue {
-	ArrayList<Product> products;
+	private ArrayList<Product> products;
+	private ArrayList<ExtraServices> extraServicesList;
 	
 	public ProductCatalogue(ArrayList<Product> products) {
 		this.products = products;
+		extraServicesList = new ArrayList<>();
+		
+		for (Product product : products) {
+			if (product instanceof ExtraServices)
+				extraServicesList.add((ExtraServices) product);
+		}
+		this.products.removeAll(extraServicesList);
 	}
 	
 	public ArrayList<Product> getProducts() {
@@ -20,10 +28,19 @@ public class ProductCatalogue {
 		products.add(p);
 	}
 
-	public ExtraServices[] getExtraServices(Product[] products) {
-		throw new UnsupportedOperationException("Not implemented yet.");
+	public ArrayList<ExtraServices> getExtraServices(Product[] productsInCart) {
+		ArrayList<ExtraServices> extraServicesForProductList = new ArrayList<>();
+		for (Product product : productsInCart) {
+			for (ExtraServices extraServices : extraServicesList) {
+				if (product.getCategory().equals(extraServices.getCategory())) {
+					if (!extraServicesForProductList.contains(extraServices)) {
+						extraServicesForProductList.add(extraServices);
+					}
+				}
+			}
+		}
+		return extraServicesForProductList;
 	}
-	
 	//NOTE search might need to be moved to Database.
 	//TODO: Search goes here
 }
