@@ -7,6 +7,7 @@ import model.profile.Profile;
 import model.profile.RegisteredProfile;
 import model.serviceManager.DatabaseManager;
 import model.profile.ProfileType;
+import model.profile.ProfileType;
 
 import java.util.ArrayList;
 
