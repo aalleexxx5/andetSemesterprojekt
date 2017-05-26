@@ -27,16 +27,6 @@ public class RegisteredProfileTest {
 		//TODO: Unique
 	}
 	
-	String generateUniqueString(){
-		//TODO
-		throw new UnsupportedOperationException();
-	}
-	
-	String generateUniqueInt(){
-		//TODO
-		throw new UnsupportedOperationException();
-	}
-	
 	@Before
 	public void Setup(){
 		
