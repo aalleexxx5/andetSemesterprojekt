@@ -46,6 +46,7 @@ public class Controller implements Initializable {
 	public TextField addProductID;
 	public Button addProductSubmit;
 	public TextField addProductPrice;
+	public Button shopAddToCart;
 	private Webshop webshop;
 
 	@Override
