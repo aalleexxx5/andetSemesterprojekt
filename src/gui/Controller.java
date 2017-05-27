@@ -47,18 +47,29 @@ public class Controller implements Initializable {
 	public TextField addProductID;
 	public Button addProductSubmit;
 	public TextField addProductPrice;
-	public Button addToCart;
+	public Button shopAddToCart;
+	public TableView cartTableView;
+	public TableColumn cartProductNameCol;
+	public TableColumn cartProductCategoryCol;
+	public TableColumn cartProductAmountCol;
+	public TableColumn cartProductTotalCol;
 	private Webshop webshop;
 	public Tab updateCart;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		webshop = new Webshop();
+		
 		ObservableList<Product> productList = FXCollections.observableArrayList(webshop.getProductCatalogue().getProducts());
 		shopListNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		shopListPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 		shopListCategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 		shopTable.setItems(productList);
+		
+		cartProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+		cartProductCategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+		cartProductAmountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
+		cartProductTotalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
 	}
 
 	@FXML
@@ -84,7 +95,9 @@ public class Controller implements Initializable {
 	
 	public void updateCartView(Event event) {
 		if(updateCart.isSelected()){
-			throw new UnsupportedOperationException("Need functionality");
+			cartTableView.setItems(
+					FXCollections.observableArrayList(
+							CartTableEntry.getCartList(webshop.getCurrentProfile().getCart())));
 		}
 	}
 
