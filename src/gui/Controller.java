@@ -3,6 +3,7 @@ package gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -48,6 +49,7 @@ public class Controller implements Initializable {
 	public TextField addProductPrice;
 	public Button addToCart;
 	private Webshop webshop;
+	public Tab updateCart;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -78,6 +80,12 @@ public class Controller implements Initializable {
 		webshop.addToCart(shopTable.getSelectionModel().getSelectedItem());
 	
 		
+	}
+	
+	public void updateCartView(Event event) {
+		if(updateCart.isSelected()){
+			throw new UnsupportedOperationException("Need functionality");
+		}
 	}
 
 	/**
@@ -238,4 +246,6 @@ public class Controller implements Initializable {
 	private void recolorTextInput(TextInputControl textInput, String hexColor) {
 		textInput.setBackground(new Background(new BackgroundFill(Paint.valueOf(hexColor), null, null)));
 	}
+	
+	
 }
