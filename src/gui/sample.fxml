@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
    <children>
       <TabPane layoutX="100.0" layoutY="63.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -146,7 +146,7 @@
                             <TableColumn fx:id="shopListCategoryCol" prefWidth="75.0" text="Category" />
                           </columns>
                         </TableView>
-                        <Button fx:id="shopAddToCart" layoutX="14.0" layoutY="311.0" mnemonicParsing="false" text="Add to cart" />
+                        <Button fx:id="shopAddToCart" layoutX="14.0" layoutY="311.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="46.0" prefWidth="108.0" text="Add to cart" />
                      </children>
                     </AnchorPane>
                 </content>

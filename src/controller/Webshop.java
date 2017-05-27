@@ -20,10 +20,12 @@ public class Webshop {
 	private Profile currentProfile;
 	private ProductCatalogue productCatalogue;
 	
+	
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
 		dbm = new DatabaseManager();
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
+
 	}
 	
 	/**
@@ -95,6 +97,12 @@ public class Webshop {
 			System.out.println("Sorry, you are not logged in as an admin, and can not add new products.");
 		}
 	}
+	
+	public void addToCart(Product p){
+		currentProfile.getCart().addProductToCart(p,1);
+	
+	}
+	
 	
 	/**
 	 * Returns the currently logged in profile.

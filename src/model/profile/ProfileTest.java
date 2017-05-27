@@ -18,7 +18,7 @@ public class ProfileTest {
         assertNotNull(profile.getCart());
         assertEquals("The cart is not empty",0, profile.getCart().getProducts().length);
 
-        profile.getCart().addProduct(p1, 1);
+        profile.getCart().addProductToCart(p1, 1);
 
         assertEquals("The cart does not contain a product", 1, profile.getCart().getProducts().length);
     }

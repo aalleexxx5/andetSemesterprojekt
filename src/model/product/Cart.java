@@ -18,7 +18,7 @@ public class Cart {
 	 * @param p      the product to add
 	 * @param amount The amount of products to add.
 	 */
-	public void addProduct(Product p, int amount) {
+	public void addProductToCart(Product p, int amount) {
 		if(amount <= 0){
 			throw new IllegalArgumentException("You cannot add 0 products to your cart!");
 		}

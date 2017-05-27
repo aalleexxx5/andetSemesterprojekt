@@ -46,7 +46,7 @@ public class Controller implements Initializable {
 	public TextField addProductID;
 	public Button addProductSubmit;
 	public TextField addProductPrice;
-	public Button shopAddToCart;
+	public Button addToCart;
 	private Webshop webshop;
 
 	@Override
@@ -63,13 +63,21 @@ public class Controller implements Initializable {
 	public void addProduct(ActionEvent event) {
 		if (addProductID.getText().matches("\\d*")) {
 			if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
-				webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(), Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
+				webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(),
+						Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
 			} else {
 				System.out.println("product Price is not formatted correctly.");
 			}
 		} else {
 			System.out.println("product ID is not formatted correctly");
 		}
+	}
+	
+	@FXML
+	public void addToCart(ActionEvent event){
+		webshop.addToCart(shopTable.getSelectionModel().getSelectedItem());
+	
+		
 	}
 
 	/**
