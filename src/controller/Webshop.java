@@ -19,7 +19,11 @@ public class Webshop {
 	
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
-		dbm = new DatabaseManager();
+
+		dbm = new DatabaseManager("postgres", "Epc63gez",
+								  "//localhost", "5432",
+								  "webshop_db");
+
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
 	}
 	

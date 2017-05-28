@@ -101,15 +101,7 @@ public class DatabaseManager extends postgresql
 	/*
 	*   Temp test value:
 
-		ArrayList<Product> list = new ArrayList<>();
-		list.add(new Product("fan", "electronics", 345, 244.95));
-		list.add(new Product("tablefan", "electronics", 346, 245.95));
-		list.add(new Product("monitor", "monitors", 423, 1499.95));
-		list.add(new Product("super tablefan", "electronics", 346, 449.99));
-		list.add(new Product("standing fan", "electronics", 120, 499.95));
-		list.add(new Product("mini monitor", "monitors", 424, 526.45));
-		list.add(new Product("LED TV", "monitors", 425, 2499.95));
-		return list;
+
 	*/
 	
 	/**
@@ -121,8 +113,7 @@ public class DatabaseManager extends postgresql
 	 */
 	public ArrayList<Product> getProductList()
 	{
-		return null;
-		//throw new UnsupportedOperationException("Not yet implemented");
+		return get_sql_Products();
 	}
 	
 	/**
@@ -151,9 +142,7 @@ public class DatabaseManager extends postgresql
 	 */
 	public String[] getProductCategories()
 	{
-
-		return new String[]{"monitors", "electronics"};
-		
+		return get_sql_ProductCategories();
 	}
 	
 	public void unregisterProfile(RegisteredProfile profile) {
