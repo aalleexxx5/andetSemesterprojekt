@@ -13,7 +13,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
 import model.product.Product;
 import model.profile.RegisteredProfile;
-import controller.Webshop;
+import Controller.Webshop;
 
 import java.net.URL;
 import java.util.ResourceBundle;
