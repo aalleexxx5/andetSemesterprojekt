@@ -121,9 +121,11 @@ public class DatabaseManager extends postgresql
 	 *
 	 * @param p The product to add.
 	 */
-	public boolean addProduct(Product p) {
-
-		throw new UnsupportedOperationException("Not implemented yet.");
+	public boolean addProduct( Product p )
+	{
+		return insert_sql_product( p.getName(),
+								   p.getPrice(),
+								   p.getCategory() );
 	}
 	
 	/**

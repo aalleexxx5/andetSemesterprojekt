@@ -20,9 +20,9 @@ public class Webshop {
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
 
-		dbm = new DatabaseManager("postgres", "Epc63gez",
-								  "//localhost", "5432",
-								  "webshop_db");
+		dbm = new DatabaseManager("admin", "password",
+								  "//url", "5432",
+								  "db");
 
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
 	}
@@ -88,13 +88,17 @@ public class Webshop {
 	}
 	
 	public void addProduct(Product p) {
-		if (currentProfile.getType() == ProfileType.ADMIN) {
-			System.out.println("Placeholder product add");
-			productCatalogue.addProduct(p);
-			System.out.println("list.add(new product(\"" + p.getName() + "\",\"" + p.getCategory() + "\", " + p.getProductID() + ", " + p.getPrice() + "));\n");
+		/*if (currentProfile.getType() == ProfileType.ADMIN) {
+
 		} else {
 			System.out.println("Sorry, you are not logged in as an admin, and can not add new products.");
-		}
+		}*/
+
+		System.out.println("Placeholder product add");
+		productCatalogue.addProduct(p);
+		dbm.addProduct(p);
+		System.out.println("list.add(new product(\"" + p.getName() + "\",\"" + p.getCategory() + "\", " + p.getProductID() + ", " + p.getPrice() + "));\n");
+
 	}
 	
 	/**

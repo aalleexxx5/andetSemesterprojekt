@@ -60,14 +60,10 @@ public class Controller implements Initializable {
 
 	@FXML
 	public void addProduct(ActionEvent event) {
-		if (addProductID.getText().matches("\\d*")) {
-			if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
-				webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(), Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
-			} else {
-				System.out.println("product Price is not formatted correctly.");
-			}
+		if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
+			webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(), Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
 		} else {
-			System.out.println("product ID is not formatted correctly");
+			System.out.println("product Price is not formatted correctly.");
 		}
 	}
 

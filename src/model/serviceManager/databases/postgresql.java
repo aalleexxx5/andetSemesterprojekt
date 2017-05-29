@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Kentv on 26-05-2017.
@@ -200,6 +201,87 @@ public class postgresql extends AbstractDatabaseImplementation
 		return null;
 	}
 
+
+	public int get_identity_sql_productCategory( String str )
+	{
+		Open();
+
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try
+		{
+			stmt = connector.createStatement();
+
+			//Hack: fixing a bug, in the code
+			String upperCaseFan =  str.substring(0, 1).toUpperCase() + str.substring(1);
+
+			String sql = Select_product_categories_identity.replace("[0]", upperCaseFan);
+			rs = stmt.executeQuery( sql );
+
+			System.out.print(sql + "\r\n");
+
+			int identity = -1;
+
+			while ( rs.next() )
+			{
+				identity = rs.getInt("identities");
+			}
+
+			Close();
+			return  identity;
+		}
+		catch (Exception ex)
+		{
+			System.out.print(ex.getMessage());
+
+		}
+
+		Close();
+
+		return -1;
+	}
+
+	public boolean insert_sql_product(String name, double price, String Category)
+	{
+		Statement stmt = null;
+
+		try
+		{
+			int categoryIdentity = get_identity_sql_productCategory( Category );
+
+			System.out.print("category: " + Integer.toString(categoryIdentity) + "\r\n");
+
+			if (categoryIdentity == -1)
+				return false;
+
+			Open();
+			stmt = connector.createStatement();
+
+			String sql = Insert_product.replace("[0]", name);
+			sql = sql.replace("[1]", Double.toString(price));
+			sql = sql.replace("[2]", Integer.toString(categoryIdentity));
+
+			System.out.print(sql + "\r\n");
+
+			stmt.execute(sql);
+
+			Close();
+			return true;
+		}
+		catch (Exception ex)
+		{
+			System.out.print(ex.getMessage());
+		}
+
+		Close();
+
+		return false;
+	}
+
+	private static String Select_product_categories_identity = "SELECT * FROM product_categories WHERE categories='[0]';";
 	private static String Select_product_categories = "SELECT categories FROM product_categories;";
 	private static String Select_products = "SELECT * FROM products;";
+
+	private static String Insert_product = "INSERT INTO catalog.product(name, price, category) VALUES('[0]', [1], [2])";
 }
