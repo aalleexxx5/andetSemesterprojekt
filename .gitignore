@@ -32,7 +32,13 @@ hs_err_pid*
 .idea/dictionaries
 
 # Sensitive or high-churn files:
-.idea/
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
 
 # Gradle:
 .idea/**/gradle.xml
@@ -60,9 +66,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+.gitignore
 .idea/aworkspace.xml
 database/profile*
-andetSemesterprojekt.ipr
-database/
-/andetSemesterprojekt.iml
-*.iml
