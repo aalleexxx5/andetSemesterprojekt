@@ -65,3 +65,4 @@ database/profile*
 andetSemesterprojekt.ipr
 database/
 /andetSemesterprojekt.iml
+*.iml
