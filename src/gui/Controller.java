@@ -43,16 +43,20 @@ public class Controller implements Initializable {
 	
 	public TableView<Product> shopTable;
 	
+	public TableView cartTableView;
+	
 	public TableColumn shopListNameCol;
 	public TableColumn shopListPriceCol;
 	public TableColumn shopListCategoryCol;
-	public TableView cartTableView;
 	public TableColumn cartProductNameCol;
 	public TableColumn cartProductCategoryCol;
 	public TableColumn cartProductAmountCol;
 	public TableColumn cartProductTotalCol;
+	
 	private Webshop webshop;
+	
 	public Tab updateCart;
+	
 	public TextField addProductPrice;
 	public TextField username;
 	public TextField signUsername;
