@@ -1,7 +1,6 @@
-package model.serviceManager;
+package Model.Database;
 
-import model.profile.ProfileType;
-import model.profile.RegisteredProfile;
+import Model.Profile.RegisteredProfile;
 
 /**
  * Created by madsen on 5/10/17.
@@ -25,5 +24,10 @@ public abstract class Database {
 	public abstract boolean ExistProfile();
 	
 	public abstract RegisteredProfile[] SelectUsers();
+	
+	public abstract void SlowExecute();
+	public abstract void Execute();
+
+	public abstract boolean Slow();
 	
 }

@@ -1,7 +1,7 @@
-package model.serviceManager;
+package Model.Database;
 
-import model.product.Product;
-import model.profile.RegisteredProfile;
+import Model.Product.Product;
+import Model.Profile.RegisteredProfile;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
 public class DatabaseManager {
+	Database ourDatabase = new PostgresDatabase();
 	
 	/**
 	 * Attempts to log a user in. The database will return the profile data if username and password matches a profile in the database.
@@ -29,7 +30,25 @@ public class DatabaseManager {
           */
 		
 		// temporary
-		throw new UnsupportedOperationException("Not yet implemented");
+		
+		RegisteredProfile[] registered = ourDatabase.SelectUsers();
+		
+		if (registered == null)
+			return null;
+		
+		System.out.print("Test: \r\n");
+		// Better options to get it done, but it's a project.
+		for (RegisteredProfile profile : registered) {
+			System.out.print("Found : " + profile.toString());
+			
+			
+			if (profile.getUsername().equals(username) &&
+					profile.getPassword().equals(password)) {
+				return profile;
+			}
+		}
+		
+		return null;
 	}
 	
 	/**
@@ -52,7 +71,10 @@ public class DatabaseManager {
 	 */
 	public boolean registerProfile(RegisteredProfile profile, String username, String password) {
 		//Remember to check for username and password validity.
-		throw new UnsupportedOperationException("Not yet implemented");
+		profile.setUsername(username);
+		profile.setPassword(password);
+		
+		return ourDatabase.InsertProfile(profile);
 	}
 	
 	/**
