@@ -14,7 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
 import model.product.Product;
 import model.profile.RegisteredProfile;
-import controller.Webshop;
+import Controller.Webshop;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -82,7 +82,7 @@ public class Controller implements Initializable {
 				System.out.println("product Price is not formatted correctly.");
 			}
 		} else {
-			System.out.println("product ID is not formatted correctly");
+			System.out.println("product Price is not formatted correctly.");
 		}
 	}
 	
