@@ -88,16 +88,17 @@ public class Webshop {
 	}
 	
 	public void addProduct(Product p) {
-		/*if (currentProfile.getType() == ProfileType.ADMIN) {
-
-		} else {
+		if (currentProfile.getType() == ProfileType.ADMIN)
+		{
+			System.out.println("Placeholder product add");
+			productCatalogue.addProduct(p);
+			dbm.addProduct(p);
+			System.out.println("list.add(new product(\"" + p.getName() + "\",\"" + p.getCategory() + "\", " + p.getProductID() + ", " + p.getPrice() + "));\n");
+		}
+		else
+		{
 			System.out.println("Sorry, you are not logged in as an admin, and can not add new products.");
-		}*/
-
-		System.out.println("Placeholder product add");
-		productCatalogue.addProduct(p);
-		dbm.addProduct(p);
-		System.out.println("list.add(new product(\"" + p.getName() + "\",\"" + p.getCategory() + "\", " + p.getProductID() + ", " + p.getPrice() + "));\n");
+		}
 
 	}
 	
