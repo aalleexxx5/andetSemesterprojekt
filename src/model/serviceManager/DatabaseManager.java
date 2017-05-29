@@ -1,7 +1,9 @@
-package Model.Database;
+package model.serviceManager;
 
-import Model.Product.Product;
-import Model.Profile.RegisteredProfile;
+import model.product.Product;
+import model.profile.RegisteredProfile;
+import model.serviceManager.blueprints.AbstractDatabaseImplementation;
+import model.serviceManager.databases.postgresql;
 
 import java.util.ArrayList;
 
@@ -10,8 +12,27 @@ import java.util.ArrayList;
  * This class contains all communication with the database.
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
-public class DatabaseManager {
-	Database ourDatabase = new PostgresDatabase();
+public class DatabaseManager extends postgresql
+{
+	// Tags: Constructors
+	public DatabaseManager()
+	{
+		if(Requirements() == false)
+			System.exit(0);
+
+	}
+
+	public DatabaseManager( String Username, String Password,
+							String Url, String Port,
+							String Database )
+	{
+		InitialiseDb( Username, Password,
+					  Url, Port,
+					  Database );
+
+		generateConnectionString();
+	}
+	
 	
 	/**
 	 * Attempts to log a user in. The database will return the profile data if username and password matches a profile in the database.
@@ -31,7 +52,7 @@ public class DatabaseManager {
 		
 		// temporary
 		
-		RegisteredProfile[] registered = ourDatabase.SelectUsers();
+		RegisteredProfile[] registered = null; //ourDatabase.SelectUsers();
 		
 		if (registered == null)
 			return null;
@@ -42,10 +63,10 @@ public class DatabaseManager {
 			System.out.print("Found : " + profile.toString());
 			
 			
-			if (profile.getUsername().equals(username) &&
+			/*if (profile.getUsername().equals(username) &&
 					profile.getPassword().equals(password)) {
 				return profile;
-			}
+			}*/
 		}
 		
 		return null;
@@ -71,30 +92,27 @@ public class DatabaseManager {
 	 */
 	public boolean registerProfile(RegisteredProfile profile, String username, String password) {
 		//Remember to check for username and password validity.
-		profile.setUsername(username);
-		profile.setPassword(password);
 		
-		return ourDatabase.InsertProfile(profile);
+		
+		return false;
 	}
+
+	/*
+	*   Temp test value:
+
+
+	*/
 	
 	/**
 	 * Returns the full list of all products.
 	 *
+	 *
+	 *
 	 * @return an array of products.
 	 */
-	public ArrayList<Product> getProductList() {
-		//Temp test value:
-		
-		ArrayList<Product> list = new ArrayList<>();
-		list.add(new Product("fan", "electronics", 345, 244.95));
-		list.add(new Product("tablefan", "electronics", 346, 245.95));
-		list.add(new Product("monitor", "monitors", 423, 1499.95));
-		list.add(new Product("super tablefan", "electronics", 346, 449.99));
-		list.add(new Product("standing fan", "electronics", 120, 499.95));
-		list.add(new Product("mini monitor", "monitors", 424, 526.45));
-		list.add(new Product("LED TV", "monitors", 425, 2499.95));
-		return list;
-		//throw new UnsupportedOperationException("Not yet implemented");
+	public ArrayList<Product> getProductList()
+	{
+		return get_sql_Products();
 	}
 	
 	/**
@@ -102,8 +120,11 @@ public class DatabaseManager {
 	 *
 	 * @param p The product to add.
 	 */
-	public boolean addProduct(Product p) {
-		throw new UnsupportedOperationException("Not implemented yet.");
+	public boolean addProduct( Product p )
+	{
+		return insert_sql_product( p.getName(),
+								   p.getPrice(),
+								   p.getCategory() );
 	}
 	
 	/**
@@ -120,13 +141,13 @@ public class DatabaseManager {
 	 *
 	 * @return a string array containing all product categories.
 	 */
-	public String[] getProductCategories() {
-		//Temp return value for testing:
-		return new String[]{"monitors", "electronics"};
-		
+	public String[] getProductCategories()
+	{
+		return get_sql_ProductCategories();
 	}
 	
 	public void unregisterProfile(RegisteredProfile profile) {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
+
 }
