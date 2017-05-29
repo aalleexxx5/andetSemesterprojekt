@@ -122,7 +122,7 @@ public class Controller implements Initializable {
 	void signUp(ActionEvent e) {
 		if (isProfileFieldsValid()) {
 			RegisteredProfile profileToRegister = new RegisteredProfile(
-					0, signName.getText(), signUsername.getText(), signPassword.getText(),
+					0, signName.getText(),
 					signAddress.getText(), signPhone.getText(), signEmail.getText());
 			System.out.println(webshop.register(signUsername.getText(), signPassword.getText(), profileToRegister));
 		}
