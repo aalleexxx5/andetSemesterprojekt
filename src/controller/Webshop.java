@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 import model.product.ExtraServices;
 import model.product.Product;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
  */
 public class Webshop {
 	private DatabaseManager dbm;
-	private RegisteredProfile loggedInProfile; //I would love to deprecate this.
 	private Profile currentProfile;
 	private ProductCatalogue productCatalogue;
 	
@@ -24,9 +23,9 @@ public class Webshop {
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
 
-		dbm = new DatabaseManager("admin", "password",
-								  "//url", "5432",
-								  "db");
+		dbm = new DatabaseManager("postgres", "Epc63gez",
+								  "//localhost", "5432",
+								  "webshop_db");
 
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
 
@@ -40,16 +39,19 @@ public class Webshop {
 	 * @return <code>true</code>, if a profile with the given credentials was found.
 	 */
 	public boolean login(String username, String password) {
-		loggedInProfile = dbm.login(username, password);
-		if (loggedInProfile != null) {
-			currentProfile = loggedInProfile;
+		currentProfile = dbm.login(username, password);
+		
+		if (currentProfile != null)
+		{
 			return true;
 		}
+		
 		return false;
 	}
 	
-	public void logout() {
-		loggedInProfile = null;
+	public void logout()
+	{
+		currentProfile = null;
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
 	}
 	
@@ -110,17 +112,6 @@ public class Webshop {
 	public void addToCart(Product p){
 		currentProfile.getCart().addProductToCart(p,1);
 	
-	}
-	
-	
-	/**
-	 * Returns the currently logged in profile.
-	 *
-	 * @return A {@link RegisteredProfile} instance of the currently logged in profile. <code>null</code> if no user is logged in.
-	 */
-	@Deprecated
-	public RegisteredProfile getLoggedInProfile() {
-		return loggedInProfile;
 	}
 	
 	/**

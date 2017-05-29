@@ -14,7 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
 import model.product.Product;
 import model.profile.RegisteredProfile;
-import Controller.Webshop;
+import controller.Webshop;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,30 +24,28 @@ public class Controller implements Initializable {
 	private static String INVALID_TEXT_FIELD_COLOR = "ffcccc";
 	private static String DEFAULT_TEXT_FIELD_COLOR = "ffffff";
 	private static String APPROVED_TEXT_FIELD_COLOR = "ccffcc";
+	
 	public Label topLabel;
-	public PasswordField password;
-	public TextField username;
 	public Label loggedInLabel;
+	
+	public PasswordField password;
+	
 	public Button login;
 	public Button logout;
 	public Button signUp;
+	public Button addProductSubmit;
+	public Button shopAddToCart;
+	
 	public PasswordField signPassword;
 	public PasswordField signRepPassword;
-	public TextField signUsername;
-	public TextField signEmail;
-	public TextField signName;
-	public TextField signPhone;
+	
 	public TextArea signAddress;
+	
 	public TableView<Product> shopTable;
+	
 	public TableColumn shopListNameCol;
 	public TableColumn shopListPriceCol;
 	public TableColumn shopListCategoryCol;
-	public TextField addProductName;
-	public TextField addProductCategory;
-	public TextField addProductID;
-	public Button addProductSubmit;
-	public TextField addProductPrice;
-	public Button shopAddToCart;
 	public TableView cartTableView;
 	public TableColumn cartProductNameCol;
 	public TableColumn cartProductCategoryCol;
@@ -55,6 +53,15 @@ public class Controller implements Initializable {
 	public TableColumn cartProductTotalCol;
 	private Webshop webshop;
 	public Tab updateCart;
+	public TextField addProductPrice;
+	public TextField username;
+	public TextField signUsername;
+	public TextField signEmail;
+	public TextField signName;
+	public TextField signPhone;
+	public TextField addProductName;
+	public TextField addProductCategory;
+	public TextField addProductID;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

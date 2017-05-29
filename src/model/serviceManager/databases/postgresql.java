@@ -84,7 +84,7 @@ public class postgresql extends AbstractDatabaseImplementation
 		}
 		catch (Exception e)
 		{
-
+		
 		}
 
 		return false;
@@ -104,12 +104,13 @@ public class postgresql extends AbstractDatabaseImplementation
 		return false;
 	}
 
-	// Is the necesarry requirements at place ? ie. does we have the required classes
+	// Is the necesarry requirements at place ? ie. do we have the required classes
 	@Override
 	protected boolean Requirements()
 	{
 		try
 		{
+			// Looks for postgresql
 			Class.forName("org.postgresql.Driver");
 			return true;
 		}

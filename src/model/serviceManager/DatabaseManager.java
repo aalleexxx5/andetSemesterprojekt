@@ -62,11 +62,6 @@ public class DatabaseManager extends postgresql
 		for (RegisteredProfile profile : registered) {
 			System.out.print("Found : " + profile.toString());
 			
-			
-			/*if (profile.getUsername().equals(username) &&
-					profile.getPassword().equals(password)) {
-				return profile;
-			}*/
 		}
 		
 		return null;
