@@ -17,14 +17,14 @@ public class CartTest {
 
     Cart generateCartWithOneProduct(){
         Cart cartMock = new Cart();
-        cartMock.addProduct(new Product("Toshiba 111", "PC", 47, 250.00), 5);
+        cartMock.addProductToCart(new Product("Toshiba 111", "PC", 47, 250.00), 5);
         return cartMock;
     }
 
     Cart generateCartWithProducts(){
         Cart cartMock = new Cart();
-        cartMock.addProduct(new Product("Nvidia 1080", "GPU", 41, 1000), 1);
-        cartMock.addProduct(new Product("Logitech 211", "Mouse", 22, 300), 1);
+        cartMock.addProductToCart(new Product("Nvidia 1080", "GPU", 41, 1000), 1);
+        cartMock.addProductToCart(new Product("Logitech 211", "Mouse", 22, 300), 1);
         return cartMock;
     }
 
@@ -34,25 +34,25 @@ public class CartTest {
 
 
     @Test
-    public void addProduct() throws Exception {
+    public void addProductToCart() throws Exception {
         Cart emptyCart = generateEmptyCart();
         try {
-            emptyCart.addProduct(generateProduct(),0);
+            emptyCart.addProductToCart(generateProduct(),0);
             fail("Adding 0 products should throw an IllegalArgumentException");
         } catch (IllegalArgumentException e){
             //Pass
         }
         try {
-            emptyCart.addProduct(generateProduct(),-1);
+            emptyCart.addProductToCart(generateProduct(),-1);
             fail("Adding a negative amount of products should throw an IllegalArgumentException");
         } catch (IllegalArgumentException e){
             //Pass
         }
         assertTrue("Cart must still be empty after failing to add a product",emptyCart.getProducts().length==0);
         Product product = generateProduct();
-        emptyCart.addProduct(product,1);
+        emptyCart.addProductToCart(product,1);
         assertTrue("Cart must contain a product after adding one", emptyCart.getProducts().length==1);
-        emptyCart.addProduct(product, 1);
+        emptyCart.addProductToCart(product, 1);
         assertTrue("Cart must increment the added product, if it alredy exists", emptyCart.getProductMap().get(product)==2);
     }
 
@@ -84,11 +84,17 @@ public class CartTest {
         }
         Cart cartWithOneProduct = generateCartWithOneProduct();
         Product productToDecrement1 = cartWithOneProduct.getProducts()[0];
-        int startingAmount = cartWithOneProduct.getProducts().length;
+        int startingAmount = cartWithOneProduct.getProductMap().get(productToDecrement1);
         int amountToRemove = 1;
         cartWithOneProduct.decrementProduct(productToDecrement1, amountToRemove);
         assertTrue("Cart must decrement the product",
-                cartWithOneProduct.getProducts().length==startingAmount-amountToRemove);
+                cartWithOneProduct.getProductMap().get(productToDecrement1)==startingAmount-amountToRemove);
+
+        Product productToRemove = cartWithOneProduct.getProducts()[0];
+        int ProductAmount = cartWithOneProduct.getProductMap().get(productToRemove);
+        cartWithOneProduct.decrementProduct(productToRemove, ProductAmount);
+        assertTrue("Cart must remove a product when decrementing below 1 amount",
+                cartWithOneProduct.getProducts().length==0);
 
 
 
@@ -105,10 +111,8 @@ public class CartTest {
 
     @Test
     public void getProductMap() throws Exception {
-        Cart cartWithProducts = generateCartWithProducts();
-        assertNotNull("The product map must not be null", cartWithProducts.getProductMap());
-        Cart emptyCart = generateEmptyCart();
-        assertNotNull("The product map returned must never be null", emptyCart.getProductMap());
+        Cart cartUnderTest = generateCartWithProducts();
+        assertNotNull("There must be products to get map", cartUnderTest.getProductMap());
     }
 
 }

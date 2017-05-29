@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  */
 public class ProductCatalogueTest {
     @Test
-    public void getExtraServices(Product[] products){
+    public void getExtraServices(){
         ArrayList<Product> productArray = new ArrayList<>();
         Product p1 = new Product("MacBook Pro", "computer", 1, 1000);
         Product p2 = new Product("iPad", "tablet", 2, 600);
@@ -27,8 +27,8 @@ public class ProductCatalogueTest {
         ProductCatalogue productCatalogue = new ProductCatalogue(productArray);
 
         assertNotNull(productCatalogue.getExtraServices(new Product[0]));
-        assertTrue(productCatalogue.getExtraServices(new Product[]{p1}).length==1);
-        assertTrue(productCatalogue.getExtraServices(new Product[]{p2}).length==2);
-        assertTrue(productCatalogue.getExtraServices(new Product[]{p1, p2}).length==3);
+        assertTrue("Product should have exactly one extra service: "+productCatalogue.getExtraServices(new Product[]{p1}).size(),productCatalogue.getExtraServices(new Product[]{p1}).size()==1);
+        assertTrue(productCatalogue.getExtraServices(new Product[]{p2}).size()==2);
+        assertTrue(productCatalogue.getExtraServices(new Product[]{p1, p2}).size()==3);
     }
 }

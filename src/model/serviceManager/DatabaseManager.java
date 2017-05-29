@@ -63,10 +63,10 @@ public class DatabaseManager extends postgresql
 			System.out.print("Found : " + profile.toString());
 			
 			
-			if (profile.getUsername().equals(username) &&
+			/*if (profile.getUsername().equals(username) &&
 					profile.getPassword().equals(password)) {
 				return profile;
-			}
+			}*/
 		}
 		
 		return null;
@@ -92,8 +92,7 @@ public class DatabaseManager extends postgresql
 	 */
 	public boolean registerProfile(RegisteredProfile profile, String username, String password) {
 		//Remember to check for username and password validity.
-		profile.setUsername(username);
-		profile.setPassword(password);
+		
 		
 		return false;
 	}

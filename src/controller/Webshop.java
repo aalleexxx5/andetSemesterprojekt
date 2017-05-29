@@ -6,7 +6,10 @@ import model.product.ProductCatalogue;
 import model.profile.Profile;
 import model.profile.RegisteredProfile;
 import model.serviceManager.DatabaseManager;
-import model.serviceManager.ProfileType;
+import model.profile.ProfileType;
+import model.profile.ProfileType;
+
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 08/05/2017.
@@ -17,6 +20,7 @@ public class Webshop {
 	private Profile currentProfile;
 	private ProductCatalogue productCatalogue;
 	
+	
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
 
@@ -25,6 +29,7 @@ public class Webshop {
 								  "db");
 
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
+
 	}
 	
 	/**
@@ -102,6 +107,12 @@ public class Webshop {
 
 	}
 	
+	public void addToCart(Product p){
+		currentProfile.getCart().addProductToCart(p,1);
+	
+	}
+	
+	
 	/**
 	 * Returns the currently logged in profile.
 	 *
@@ -122,7 +133,7 @@ public class Webshop {
 		return currentProfile;
 	}
 
-	public ExtraServices[] showExtraServices() {
-		throw new UnsupportedOperationException();
+	public ArrayList<ExtraServices> showExtraServices() {
+		return productCatalogue.getExtraServices(currentProfile.getCart().getProducts());
 	}
 }

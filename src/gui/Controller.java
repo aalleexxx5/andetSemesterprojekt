@@ -3,6 +3,7 @@ package gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -46,24 +47,57 @@ public class Controller implements Initializable {
 	public TextField addProductID;
 	public Button addProductSubmit;
 	public TextField addProductPrice;
+	public Button shopAddToCart;
+	public TableView cartTableView;
+	public TableColumn cartProductNameCol;
+	public TableColumn cartProductCategoryCol;
+	public TableColumn cartProductAmountCol;
+	public TableColumn cartProductTotalCol;
 	private Webshop webshop;
+	public Tab updateCart;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		webshop = new Webshop();
+		
 		ObservableList<Product> productList = FXCollections.observableArrayList(webshop.getProductCatalogue().getProducts());
 		shopListNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 		shopListPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 		shopListCategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 		shopTable.setItems(productList);
+		
+		cartProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+		cartProductCategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+		cartProductAmountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
+		cartProductTotalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
 	}
 
 	@FXML
 	public void addProduct(ActionEvent event) {
-		if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
-			webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(), Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
+		if (addProductID.getText().matches("\\d*")) {
+			if (addProductPrice.getText().matches("(\\d+)[.](\\d{1,2})")) {
+				webshop.addProduct(new Product(addProductName.getText(), addProductCategory.getText(),
+						Integer.valueOf(addProductID.getText()), Double.valueOf(addProductPrice.getText())));
+			} else {
+				System.out.println("product Price is not formatted correctly.");
+			}
 		} else {
 			System.out.println("product Price is not formatted correctly.");
+		}
+	}
+	
+	@FXML
+	public void addToCart(ActionEvent event){
+		webshop.addToCart(shopTable.getSelectionModel().getSelectedItem());
+	
+		
+	}
+	
+	public void updateCartView(Event event) {
+		if(updateCart.isSelected()){
+			cartTableView.setItems(
+					FXCollections.observableArrayList(
+							CartTableEntry.getCartList(webshop.getCurrentProfile().getCart())));
 		}
 	}
 
@@ -88,7 +122,7 @@ public class Controller implements Initializable {
 	void signUp(ActionEvent e) {
 		if (isProfileFieldsValid()) {
 			RegisteredProfile profileToRegister = new RegisteredProfile(
-					0, signName.getText(), signUsername.getText(), signPassword.getText(),
+					0, signName.getText(),
 					signAddress.getText(), signPhone.getText(), signEmail.getText());
 			System.out.println(webshop.register(signUsername.getText(), signPassword.getText(), profileToRegister));
 		}
@@ -225,4 +259,6 @@ public class Controller implements Initializable {
 	private void recolorTextInput(TextInputControl textInput, String hexColor) {
 		textInput.setBackground(new Background(new BackgroundFill(Paint.valueOf(hexColor), null, null)));
 	}
+	
+	
 }

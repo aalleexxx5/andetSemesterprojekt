@@ -1,4 +1,4 @@
-package model.serviceManager;
+package model.profile;
 
 /**
  * Created by Alex on 08/05/2017.

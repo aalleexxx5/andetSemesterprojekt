@@ -1,7 +1,5 @@
 package model.profile;
 
-import model.serviceManager.ProfileType;
-
 /**
  * Created by Alex on 08/05/2017.
  */
@@ -10,8 +8,6 @@ public class RegisteredProfile extends Profile {
 	private String address;
 	private String phone;
 	private String email;
-	private String password;
-	private String username;
 	private Order[] processedOrders;
 	
 	/**
@@ -25,19 +21,7 @@ public class RegisteredProfile extends Profile {
 		this.phone = phone;
 		this.email = email;
 		
-		this.processedOrders = null;
-	}
-	
-	public RegisteredProfile(int profileID, String name, String password, String address, String phone, String email) {
-		this(profileID, name, address, phone, email);
-		
-		this.password = password;
-	}
-	
-	public RegisteredProfile(int profileID, String name, String username, String password, String address, String phone, String email) {
-		this(profileID, name, password, address, phone, email);
-		
-		this.username = username;
+		this.processedOrders = new Order[0];
 	}
 	
 	public RegisteredProfile(int profileID, String name, String address, String phone, String email, Order[] processedOrders) {
@@ -48,15 +32,6 @@ public class RegisteredProfile extends Profile {
 	
 	public RegisteredProfile(int profileID, String name, String address, String phone, String email, Order[] processedOrders, ProfileType type) {
 		this(profileID, name, address, phone, email, processedOrders);
-		
-		this.setType(type);
-	}
-	
-	public RegisteredProfile(int profileID, String name, String username, String password, String address, String phone, String email, Order[] processedOrders, ProfileType type) {
-		this(profileID, name, address, phone, email, processedOrders);
-		
-		setUsername(username);
-		setPassword(password);
 		
 		this.setType(type);
 	}
@@ -104,26 +79,6 @@ public class RegisteredProfile extends Profile {
 	 */
 	public Order[] getProcessedOrders() {
 		return processedOrders;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String pass) {
-		this.password = pass;
-	}
-	
-	public String getUsername() {
-		return username;
-	}
-	
-	public void setUsername(String user) {
-		this.username = user;
-	}
-	
-	public String toString() {
-		return getUsername() + ", " + getPassword() + ", " + getName() + "\r\n";
 	}
 	
 }
