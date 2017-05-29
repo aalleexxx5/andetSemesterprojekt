@@ -8,6 +8,7 @@ import model.profile.RegisteredProfile;
 import model.serviceManager.DatabaseManager;
 import model.profile.ProfileType;
 import model.profile.ProfileType;
+import model.serviceManager.databases.DatabaseManagerMock;
 
 import java.util.ArrayList;
 
@@ -15,18 +16,15 @@ import java.util.ArrayList;
  * Created by Alex on 08/05/2017.
  */
 public class Webshop {
-	private DatabaseManager dbm;
+	private DatabaseManagerMock dbm;
 	private Profile currentProfile;
 	private ProductCatalogue productCatalogue;
 	
 	
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
-
-		dbm = new DatabaseManager("postgres", "Password",
-								  "//localhost", "5432",
-								  "webshop_db");
-
+		//dbm = new DatabaseManager("postgres", "Password", "//localhost", "5432", "webshop_db");
+		dbm = new DatabaseManagerMock();
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
 
 	}

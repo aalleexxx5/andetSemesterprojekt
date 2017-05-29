@@ -3,6 +3,7 @@ package model.serviceManager;
 import model.product.Product;
 import model.profile.RegisteredProfile;
 import model.serviceManager.blueprints.AbstractDatabaseImplementation;
+import model.serviceManager.databases.DatabaseManagerMock;
 import model.serviceManager.databases.postgresql;
 
 import java.util.ArrayList;
@@ -12,24 +13,21 @@ import java.util.ArrayList;
  * This class contains all communication with the database.
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
-public class DatabaseManager extends postgresql
-{
+public class DatabaseManager extends postgresql {
 	// Tags: Constructors
-	public DatabaseManager()
-	{
-		if(Requirements() == false)
-			System.exit(0);
-
+	public DatabaseManager() {
+		if (!Requirements()){
+			throw new IllegalStateException("The database connection was not established");
+		}
 	}
-
-	public DatabaseManager( String Username, String Password,
-							String Url, String Port,
-							String Database )
-	{
-		InitialiseDb( Username, Password,
-					  Url, Port,
-					  Database );
-
+	
+	public DatabaseManager(String Username, String Password,
+	                       String Url, String Port,
+	                       String Database) {
+		InitialiseDb(Username, Password,
+				Url, Port,
+				Database);
+		
 		generateConnectionString();
 	}
 	
@@ -101,12 +99,9 @@ public class DatabaseManager extends postgresql
 	/**
 	 * Returns the full list of all products.
 	 *
-	 *
-	 *
 	 * @return an array of products.
 	 */
-	public ArrayList<Product> getProductList()
-	{
+	public ArrayList<Product> getProductList() {
 		return get_sql_Products();
 	}
 	
@@ -115,11 +110,10 @@ public class DatabaseManager extends postgresql
 	 *
 	 * @param p The product to add.
 	 */
-	public boolean addProduct( Product p )
-	{
-		return insert_sql_product( p.getName(),
-								   p.getPrice(),
-								   p.getCategory() );
+	public boolean addProduct(Product p) {
+		return insert_sql_product(p.getName(),
+				p.getPrice(),
+				p.getCategory());
 	}
 	
 	/**
@@ -136,13 +130,12 @@ public class DatabaseManager extends postgresql
 	 *
 	 * @return a string array containing all product categories.
 	 */
-	public String[] getProductCategories()
-	{
+	public String[] getProductCategories() {
 		return get_sql_ProductCategories();
 	}
 	
 	public void unregisterProfile(RegisteredProfile profile) {
 		throw new UnsupportedOperationException("Not yet implemented");
 	}
-
+	
 }
