@@ -52,7 +52,17 @@ public class Controller implements Initializable {
 	public TableColumn cartProductCategoryCol;
 	public TableColumn cartProductAmountCol;
 	public TableColumn cartProductTotalCol;
-	
+	public Button cartCheckoutButton;
+	public Tab extraServices;
+	public TableView eSTable;
+	public TableColumn eSName;
+	public TableColumn eSPrice;
+	public TableColumn eSCategory;
+	public Button addToCartExtraServices;
+	public Button nextExtraServices;
+	public TabPane tabPane;
+	public Tab checkout;
+
 	private Webshop webshop;
 	
 	public Tab updateCart;
@@ -81,6 +91,10 @@ public class Controller implements Initializable {
 		cartProductCategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 		cartProductAmountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		cartProductTotalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+		eSName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		eSPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+		eSCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
 	}
 
 	@FXML
@@ -270,6 +284,15 @@ public class Controller implements Initializable {
 	private void recolorTextInput(TextInputControl textInput, String hexColor) {
 		textInput.setBackground(new Background(new BackgroundFill(Paint.valueOf(hexColor), null, null)));
 	}
-	
-	
+
+	@FXML
+	private void showExtraServices(ActionEvent e) {
+		tabPane.getSelectionModel().select(extraServices);
+		FXCollections.observableArrayList(webshop.showExtraServices());
+	}
+
+	@FXML
+	private void proceedToCheckout(ActionEvent e) {
+		tabPane.getSelectionModel().select(checkout);
+	}
 }

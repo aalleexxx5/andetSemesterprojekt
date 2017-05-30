@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
    <children>
-      <TabPane layoutX="100.0" layoutY="63.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="tabPane" layoutX="100.0" layoutY="63.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab closable="false" text="Login">
             <content>
@@ -153,9 +153,9 @@
             </Tab>
             <Tab fx:id="updateCart" closable="false" onSelectionChanged="#updateCartView" text="Cart">
                 <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="328.0" prefWidth="600.0">
                      <children>
-                        <TableView fx:id="cartTableView" layoutX="48.0" layoutY="29.0" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="cartTableView" layoutX="-6.0" layoutY="-2.0" prefHeight="313.0" prefWidth="608.0">
                           <columns>
                             <TableColumn fx:id="cartProductNameCol" prefWidth="299.0" text="Name" />
                               <TableColumn fx:id="cartProductCategoryCol" minWidth="6.0" prefWidth="165.0" text="Category" />
@@ -163,9 +163,12 @@
                               <TableColumn fx:id="cartProductTotalCol" prefWidth="77.0" text="Total" />
                           </columns>
                         </TableView>
+                        <Button fx:id="cartCheckoutButton" layoutX="14.0" layoutY="311.0" mnemonicParsing="false" onAction="#showExtraServices" prefHeight="46.0" prefWidth="149.0" text="Proceed to checkout" />
                      </children>
                     </AnchorPane>
                 </content>
+               <graphic>
+               </graphic>
             </Tab>
             <Tab closable="false" text="Wish list">
                 <content>
@@ -189,14 +192,38 @@
                     </AnchorPane>
                 </content>
             </Tab>
-            <Tab closable="false" text="Place holder">
+            <Tab fx:id="extraServices" closable="false" text="Extra services">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                        <children>
-
-                        </children>
+                     <children>
+                        <TableView fx:id="eSTable" layoutX="-6.0" layoutY="-2.0" prefHeight="313.0" prefWidth="608.0">
+                           <columns>
+                              <TableColumn fx:id="eSName" prefWidth="310.0" text="Name" />
+                              <TableColumn fx:id="eSPrice" minWidth="0.0" prefWidth="136.0" text="Price" />
+                              <TableColumn fx:id="eSCategory" minWidth="0.0" prefWidth="161.0" text="Category" />
+                           </columns>
+                        </TableView>
+                        <Button fx:id="addToCartExtraServices" layoutX="14.0" layoutY="311.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="108.0" text="Add to cart" />
+                        <Button fx:id="nextExtraServices" layoutX="478.0" layoutY="311.0" mnemonicParsing="false" onAction="#proceedToCheckout" prefHeight="46.0" prefWidth="108.0" text="Next" />
+                     </children>
                     </AnchorPane>
                 </content>
+            </Tab>
+            <Tab fx:id="checkout" text="Checkout">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField layoutX="108.0" layoutY="30.0" />
+                        <TextField layoutX="108.0" layoutY="73.0" />
+                        <TextField layoutX="108.0" layoutY="116.0" />
+                        <TextField layoutX="108.0" layoutY="157.0" />
+                        <Label layoutX="20.0" layoutY="35.0" text="Name" />
+                        <Label layoutX="20.0" layoutY="78.0" text="Adress" />
+                        <Label layoutX="20.0" layoutY="121.0" text="E-mail" />
+                        <Label layoutX="16.0" layoutY="162.0" text="Phonenumber" />
+                     </children>
+                  </AnchorPane>
+              </content>
             </Tab>
         </tabs>
       </TabPane>
