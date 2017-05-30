@@ -13,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Paint;
 import model.product.Product;
+import model.profile.ProfileType;
 import model.profile.RegisteredProfile;
 import controller.Webshop;
 
@@ -62,8 +63,12 @@ public class Controller implements Initializable {
 	public Button nextExtraServices;
 	public TabPane tabPane;
 	public Tab checkout;
+    public TextField checkoutNameField;
+    public TextField checkoutAddressField;
+    public TextField checkoutEmailField;
+    public TextField checkoutPhonenumberField;
 
-	private Webshop webshop;
+    private Webshop webshop;
 	
 	public Tab updateCart;
 	
@@ -293,6 +298,14 @@ public class Controller implements Initializable {
 
 	@FXML
 	private void proceedToCheckout(ActionEvent e) {
+
 		tabPane.getSelectionModel().select(checkout);
+		if (webshop.getCurrentProfile().getType() != ProfileType.VISITOR) {
+            RegisteredProfile currentProfile = (RegisteredProfile)webshop.getCurrentProfile();
+            checkoutNameField.setText(currentProfile.getName());
+		    checkoutAddressField.setText(currentProfile.getAddress());
+		    checkoutEmailField.setText(currentProfile.getEmail());
+		    checkoutPhonenumberField.setText(currentProfile.getPhone());
+        }
 	}
 }
