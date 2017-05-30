@@ -1,5 +1,7 @@
 package testUtils;
 
+import model.product.Product;
+
 import java.util.ArrayList;
 
 /**
@@ -65,7 +67,17 @@ public class GenerationUtils {
 		}
 		throw new IllegalStateException("No unique inger could be generated");
 	}
-	
+
+	public static Product generateRandomProduct(){
+		String randomName = generateRandomString(5);
+		String randomCategory = generateRandomString(8);
+		int randomID = generateRandomIntByLength(3);
+		double randomPrice = generateRandomInt(100);
+
+		return new Product(randomName,randomCategory,randomID,randomPrice);
+	}
+
+
 	public static void main(String args[]){
 		
 	}
