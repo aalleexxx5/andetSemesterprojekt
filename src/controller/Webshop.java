@@ -16,15 +16,14 @@ import java.util.ArrayList;
  * Created by Alex on 08/05/2017.
  */
 public class Webshop {
-	private DatabaseManagerMock dbm;
+	private DatabaseManager dbm;
 	private Profile currentProfile;
 	private ProductCatalogue productCatalogue;
 	
 	
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
-		//dbm = new DatabaseManager("postgres", "Password", "//localhost", "5432", "webshop_db");
-		dbm = new DatabaseManagerMock();
+		dbm = new DatabaseManager();
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
 
 	}

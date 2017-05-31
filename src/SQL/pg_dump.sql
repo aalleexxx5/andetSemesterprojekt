@@ -75,7 +75,54 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
 SET search_path = account, pg_catalog;
+
+--
+-- Name: encrypt_password(); Type: FUNCTION; Schema: account; Owner: postgres
+--
+
+CREATE FUNCTION encrypt_password() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+
+  IF ( tg_op = 'INSERT' )
+    THEN
+    -- Generate SALT
+      NEW.salt = gen_salt('bf');
+
+      -- Generate Password
+      NEW.password = crypt(NEW.password, NEW.salt);
+    RETURN NEW;
+    ELSEIF ( tg_op = 'UPDATE' )
+      THEN
+      -- Generate SALT
+      NEW.salt = gen_salt('bf');
+
+      -- Generate Password
+      NEW.password = crypt(NEW.password, NEW.salt);
+    RETURN NEW;
+  END IF;
+
+END;
+$$;
+
+
+ALTER FUNCTION account.encrypt_password() OWNER TO postgres;
 
 --
 -- Name: lower_name(); Type: FUNCTION; Schema: account; Owner: postgres
@@ -134,10 +181,10 @@ SET default_with_oids = false;
 
 CREATE TABLE orders (
     identities integer NOT NULL,
-    profile_info integer NOT NULL,
     order_status integer NOT NULL,
     "timestamp" date DEFAULT now() NOT NULL,
-    product_list integer NOT NULL
+    product_list integer NOT NULL,
+    profile integer NOT NULL
 );
 
 
@@ -210,60 +257,6 @@ CREATE TABLE person_firstnames (
 ALTER TABLE person_firstnames OWNER TO postgres;
 
 --
--- Name: person_lastnames; Type: TABLE; Schema: account; Owner: postgres
---
-
-CREATE TABLE person_lastnames (
-    identities integer NOT NULL,
-    name text NOT NULL
-);
-
-
-ALTER TABLE person_lastnames OWNER TO postgres;
-
---
--- Name: person_names; Type: TABLE; Schema: account; Owner: postgres
---
-
-CREATE TABLE person_names (
-    identities integer NOT NULL,
-    firstname integer,
-    middlename text,
-    lastname integer
-);
-
-
-ALTER TABLE person_names OWNER TO postgres;
-
---
--- Name: person_names_view; Type: VIEW; Schema: account; Owner: postgres
---
-
-CREATE VIEW person_names_view AS
- SELECT person_name.identities AS identity,
-    firstnames.name AS first_names,
-    person_name.middlename AS middle_names,
-    lastnames.name AS last_names
-   FROM ((person_names person_name
-     JOIN person_firstnames firstnames ON ((person_name.firstname = firstnames.identities)))
-     JOIN person_lastnames lastnames ON ((person_name.lastname = lastnames.identities)));
-
-
-ALTER TABLE person_names_view OWNER TO postgres;
-
---
--- Name: people_names_view; Type: VIEW; Schema: account; Owner: postgres
---
-
-CREATE VIEW people_names_view AS
- SELECT v.identity AS identities,
-    (((initcap(v.first_names) || concat((' '::text || initcap(v.middle_names)))) || ' '::text) || initcap(v.last_names)) AS person_names
-   FROM person_names_view v;
-
-
-ALTER TABLE people_names_view OWNER TO postgres;
-
---
 -- Name: person_firstnames_identities_seq; Type: SEQUENCE; Schema: account; Owner: postgres
 --
 
@@ -285,6 +278,18 @@ ALTER SEQUENCE person_firstnames_identities_seq OWNED BY person_firstnames.ident
 
 
 --
+-- Name: person_lastnames; Type: TABLE; Schema: account; Owner: postgres
+--
+
+CREATE TABLE person_lastnames (
+    identities integer NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE person_lastnames OWNER TO postgres;
+
+--
 -- Name: person_lastnames_identities_seq; Type: SEQUENCE; Schema: account; Owner: postgres
 --
 
@@ -304,6 +309,20 @@ ALTER TABLE person_lastnames_identities_seq OWNER TO postgres;
 
 ALTER SEQUENCE person_lastnames_identities_seq OWNED BY person_lastnames.identities;
 
+
+--
+-- Name: person_names; Type: TABLE; Schema: account; Owner: postgres
+--
+
+CREATE TABLE person_names (
+    identities integer NOT NULL,
+    firstname integer,
+    middlename text,
+    lastname integer
+);
+
+
+ALTER TABLE person_names OWNER TO postgres;
 
 --
 -- Name: person_names_identity_seq; Type: SEQUENCE; Schema: account; Owner: postgres
@@ -334,11 +353,40 @@ CREATE TABLE profile_header (
     identities bigint NOT NULL,
     username text NOT NULL,
     password text NOT NULL,
-    salt text NOT NULL
+    salt text NOT NULL,
+    privileges integer DEFAULT 1 NOT NULL
 );
 
 
 ALTER TABLE profile_header OWNER TO postgres;
+
+--
+-- Name: profile_privileges; Type: TABLE; Schema: account; Owner: postgres
+--
+
+CREATE TABLE profile_privileges (
+    identities integer NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE profile_privileges OWNER TO postgres;
+
+--
+-- Name: profile_header_table; Type: VIEW; Schema: account; Owner: postgres
+--
+
+CREATE VIEW profile_header_table AS
+ SELECT header.identities,
+    header.username,
+    header.password,
+    header.salt,
+    privilege.name
+   FROM (profile_header header
+     JOIN profile_privileges privilege ON ((header.privileges = privilege.identities)));
+
+
+ALTER TABLE profile_header_table OWNER TO postgres;
 
 --
 -- Name: profile_information; Type: TABLE; Schema: account; Owner: postgres
@@ -349,11 +397,40 @@ CREATE TABLE profile_information (
     ref_user bigint NOT NULL,
     ref_person_name integer NOT NULL,
     ref_address integer NOT NULL,
-    ref_phone bigint NOT NULL
+    ref_phone bigint NOT NULL,
+    email text
 );
 
 
 ALTER TABLE profile_information OWNER TO postgres;
+
+--
+-- Name: vpeople_names_columns; Type: VIEW; Schema: account; Owner: postgres
+--
+
+CREATE VIEW vpeople_names_columns AS
+ SELECT person_name.identities AS identity,
+    firstnames.name AS first_names,
+    person_name.middlename AS middle_names,
+    lastnames.name AS last_names
+   FROM ((person_names person_name
+     JOIN person_firstnames firstnames ON ((person_name.firstname = firstnames.identities)))
+     JOIN person_lastnames lastnames ON ((person_name.lastname = lastnames.identities)));
+
+
+ALTER TABLE vpeople_names_columns OWNER TO postgres;
+
+--
+-- Name: vpeople_names_trunc; Type: VIEW; Schema: account; Owner: postgres
+--
+
+CREATE VIEW vpeople_names_trunc AS
+ SELECT v.identity AS identities,
+    (((initcap(v.first_names) || concat((' '::text || initcap(v.middle_names)))) || ' '::text) || initcap(v.last_names)) AS person_names
+   FROM vpeople_names_columns v;
+
+
+ALTER TABLE vpeople_names_trunc OWNER TO postgres;
 
 SET search_path = world, pg_catalog;
 
@@ -515,45 +592,45 @@ ALTER TABLE phone_numbers_view OWNER TO postgres;
 SET search_path = account, pg_catalog;
 
 --
--- Name: profile; Type: VIEW; Schema: account; Owner: postgres
+-- Name: profile_information_table; Type: VIEW; Schema: account; Owner: postgres
 --
 
-CREATE VIEW profile AS
- SELECT prof.identities,
-    prof.username,
-    pname.person_names,
+CREATE VIEW profile_information_table AS
+ SELECT info.identities,
+    info.ref_user,
+    names.person_names,
+    info.email,
     addr.address,
-    addr.countries,
     addr.postal_codes,
-    phone.numbers
-   FROM ((((profile_header prof
-     JOIN profile_information infor ON ((prof.identities = infor.ref_user)))
-     JOIN people_names_view pname ON ((infor.ref_user = pname.identities)))
-     JOIN world.address_view addr ON ((infor.ref_address = addr.identities)))
-     JOIN world.phone_numbers_view phone ON ((infor.ref_phone = phone.identities)));
+    phones.numbers
+   FROM (((profile_information info
+     JOIN vpeople_names_trunc names ON ((info.ref_person_name = names.identities)))
+     JOIN world.address_view addr ON ((info.ref_address = addr.identities)))
+     JOIN world.phone_numbers_view phones ON ((info.ref_phone = phones.identities)));
 
 
-ALTER TABLE profile OWNER TO postgres;
+ALTER TABLE profile_information_table OWNER TO postgres;
 
 --
--- Name: profile_informations_view; Type: VIEW; Schema: account; Owner: postgres
+-- Name: profile_privileges_identities_seq; Type: SEQUENCE; Schema: account; Owner: postgres
 --
 
-CREATE VIEW profile_informations_view AS
- SELECT prof_info.identities,
-    peoples.person_names,
-    prof_info.ref_user,
-    av.postal_codes,
-    av.countries,
-    av.address,
-    pn.numbers
-   FROM (((profile_information prof_info
-     JOIN people_names_view peoples ON ((peoples.identities = prof_info.ref_person_name)))
-     JOIN world.phone_numbers_view pn ON ((prof_info.ref_phone = pn.identities)))
-     JOIN world.address_view av ON ((prof_info.ref_address = av.identities)));
+CREATE SEQUENCE profile_privileges_identities_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
-ALTER TABLE profile_informations_view OWNER TO postgres;
+ALTER TABLE profile_privileges_identities_seq OWNER TO postgres;
+
+--
+-- Name: profile_privileges_identities_seq; Type: SEQUENCE OWNED BY; Schema: account; Owner: postgres
+--
+
+ALTER SEQUENCE profile_privileges_identities_seq OWNED BY profile_privileges.identities;
+
 
 --
 -- Name: user_identities_seq; Type: SEQUENCE; Schema: account; Owner: postgres
@@ -738,31 +815,40 @@ ALTER SEQUENCE product_list_identities_seq OWNED BY product_list.identities;
 SET search_path = public, pg_catalog;
 
 --
--- Name: product_categories; Type: VIEW; Schema: public; Owner: postgres
+-- Name: products_table; Type: VIEW; Schema: public; Owner: postgres
 --
 
-CREATE VIEW product_categories AS
- SELECT product_category.identities,
-    product_category.name AS categories
-   FROM catalog.product_category;
+CREATE VIEW products_table AS
+ SELECT products.identities,
+    products.name AS product_names,
+    products.price,
+    categories.name AS category_names
+   FROM (catalog.product products
+     JOIN catalog.product_category categories ON ((products.category = categories.identities)))
+  ORDER BY products.name;
 
 
-ALTER TABLE product_categories OWNER TO postgres;
+ALTER TABLE products_table OWNER TO postgres;
 
 --
--- Name: products; Type: VIEW; Schema: public; Owner: postgres
+-- Name: profiles; Type: VIEW; Schema: public; Owner: postgres
 --
 
-CREATE VIEW products AS
- SELECT product.identities,
-    product.name AS product_names,
-    product.price,
-    categories.name
-   FROM (catalog.product
-     JOIN catalog.product_category categories ON ((product.category = categories.identities)));
+CREATE VIEW profiles AS
+ SELECT head.identities,
+    head.username AS usernames,
+    head.password AS passwords,
+    head.salt AS salts,
+    head.name AS account_types,
+    info.person_names,
+    info.email AS emails,
+    info.address,
+    info.numbers
+   FROM (account.profile_header_table head
+     JOIN account.profile_information_table info ON ((head.identities = info.ref_user)));
 
 
-ALTER TABLE products OWNER TO postgres;
+ALTER TABLE profiles OWNER TO postgres;
 
 SET search_path = world, pg_catalog;
 
@@ -1027,6 +1113,13 @@ ALTER TABLE ONLY profile_header ALTER COLUMN identities SET DEFAULT nextval('use
 ALTER TABLE ONLY profile_information ALTER COLUMN identities SET DEFAULT nextval('user_information_identities_seq'::regclass);
 
 
+--
+-- Name: profile_privileges identities; Type: DEFAULT; Schema: account; Owner: postgres
+--
+
+ALTER TABLE ONLY profile_privileges ALTER COLUMN identities SET DEFAULT nextval('profile_privileges_identities_seq'::regclass);
+
+
 SET search_path = catalog, pg_catalog;
 
 --
@@ -1185,6 +1278,14 @@ ALTER TABLE ONLY person_lastnames
 
 ALTER TABLE ONLY person_names
     ADD CONSTRAINT person_names_pkey PRIMARY KEY (identities);
+
+
+--
+-- Name: profile_privileges profile_privileges_pkey; Type: CONSTRAINT; Schema: account; Owner: postgres
+--
+
+ALTER TABLE ONLY profile_privileges
+    ADD CONSTRAINT profile_privileges_pkey PRIMARY KEY (identities);
 
 
 --
@@ -1465,6 +1566,13 @@ CREATE TRIGGER firstname_lowername BEFORE INSERT OR UPDATE ON person_firstnames 
 
 
 --
+-- Name: profile_header insert_or_update_password_trigger; Type: TRIGGER; Schema: account; Owner: postgres
+--
+
+CREATE TRIGGER insert_or_update_password_trigger BEFORE INSERT OR UPDATE ON profile_header FOR EACH ROW EXECUTE PROCEDURE encrypt_password();
+
+
+--
 -- Name: person_lastnames lastname_lowername; Type: TRIGGER; Schema: account; Owner: postgres
 --
 
@@ -1499,11 +1607,11 @@ ALTER TABLE ONLY orders
 
 
 --
--- Name: orders orders_profile_info_fkey; Type: FK CONSTRAINT; Schema: account; Owner: postgres
+-- Name: orders orders_profile_fkey; Type: FK CONSTRAINT; Schema: account; Owner: postgres
 --
 
 ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_profile_info_fkey FOREIGN KEY (profile_info) REFERENCES profile_information(identities);
+    ADD CONSTRAINT orders_profile_fkey FOREIGN KEY (profile) REFERENCES profile_header(identities);
 
 
 --
@@ -1520,6 +1628,14 @@ ALTER TABLE ONLY person_names
 
 ALTER TABLE ONLY person_names
     ADD CONSTRAINT person_names_lastname_fkey FOREIGN KEY (lastname) REFERENCES person_lastnames(identities);
+
+
+--
+-- Name: profile_header profile_header_privileges_fkey; Type: FK CONSTRAINT; Schema: account; Owner: postgres
+--
+
+ALTER TABLE ONLY profile_header
+    ADD CONSTRAINT profile_header_privileges_fkey FOREIGN KEY (privileges) REFERENCES profile_privileges(identities);
 
 
 --

@@ -1,34 +1,37 @@
 package model.serviceManager;
 
 import model.product.Product;
+import model.profile.Profile;
 import model.profile.RegisteredProfile;
-import model.serviceManager.blueprints.AbstractDatabaseImplementation;
-import model.serviceManager.databases.DatabaseManagerMock;
-import model.serviceManager.databases.postgresql;
+import model.serviceManager.objects.Products;
+import model.serviceManager.objects.Profiles;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Alex on 08/05/2017.
  * This class contains all communication with the database.
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
-public class DatabaseManager extends postgresql {
+public class DatabaseManager implements DatabaseInterface
+{
+	Connection connector = null;
+
 	// Tags: Constructors
 	public DatabaseManager() {
-		if (!Requirements()){
-			throw new IllegalStateException("The database connection was not established");
-		}
+
 	}
 	
 	public DatabaseManager(String Username, String Password,
 	                       String Url, String Port,
-	                       String Database) {
-		InitialiseDb(Username, Password,
-				Url, Port,
-				Database);
+	                       String Database)
+	{
+
 		
-		generateConnectionString();
 	}
 	
 	
@@ -47,32 +50,13 @@ public class DatabaseManager extends postgresql {
          Test if it works with what's inside the diamond brackets as username and password <' OR '1'='1' -->
          Good luck.
           */
-		
-		// temporary
-		
-		RegisteredProfile[] registered = null; //ourDatabase.SelectUsers();
+
+		RegisteredProfile registered = Profiles.getModelProfile(new Profiles(username, password, this));
 		
 		if (registered == null)
 			return null;
-		
-		System.out.print("Test: \r\n");
-		// Better options to get it done, but it's a project.
-		for (RegisteredProfile profile : registered) {
-			System.out.print("Found : " + profile.toString());
-			
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Returns whether a username is in use in the database.
-	 *
-	 * @param username The username to check
-	 * @return True, if the name is in use.
-	 */
-	public boolean userExists(String username) {
-		throw new UnsupportedOperationException("Not yet implemented");
+
+		return registered;
 	}
 	
 	/**
@@ -83,26 +67,55 @@ public class DatabaseManager extends postgresql {
 	 * @param password The password of the profile.
 	 * @return True if the operation was successful, false otherwise.
 	 */
-	public boolean registerProfile(RegisteredProfile profile, String username, String password) {
+	public boolean registerProfile(RegisteredProfile profile, String username, String password)
+	{
 		//Remember to check for username and password validity.
-		
-		
-		return false;
+		return Profiles.RegisterProfile();
 	}
 
-	/*
-	*   Temp test value:
+	public boolean unregisterProfile( RegisteredProfile profile )
+	{
+		return Profiles.UnregisterProfile();
+	}
 
+	/**
+	 * Returns whether a username is in use in the database.
+	 *
+	 * @param username The username to check
+	 * @return True, if the name is in use.
+	 */
+	public boolean userExists(String username)
+	{
+		return Profiles.ExistProfile();
+	}
 
-	*/
-	
 	/**
 	 * Returns the full list of all products.
 	 *
 	 * @return an array of products.
 	 */
-	public ArrayList<Product> getProductList() {
-		return get_sql_Products();
+	public ArrayList<Product> getProductList()
+	{
+		ArrayList<Product> prodList = new ArrayList<>();
+
+		// Retrieves all product_identities in the Database
+		List<Integer> identities = Products.getProductIdentities(this);
+
+		// For each of them, get their columns.
+		// Temp : Could be made alot easier
+		for( int i : identities )
+		{
+			if ( i == -1 )
+				continue;
+
+			// gets the products, attributes
+			Products p = new Products( i, this );
+
+			// Convert to a model product
+			prodList.add( p.getModelProduct() );
+		}
+
+		return prodList;
 	}
 	
 	/**
@@ -110,10 +123,9 @@ public class DatabaseManager extends postgresql {
 	 *
 	 * @param p The product to add.
 	 */
-	public boolean addProduct(Product p) {
-		return insert_sql_product(p.getName(),
-				p.getPrice(),
-				p.getCategory());
+	public boolean addProduct(Product p)
+	{
+		return Products.addProduct( p, this );
 	}
 	
 	/**
@@ -121,8 +133,9 @@ public class DatabaseManager extends postgresql {
 	 *
 	 * @param p the product to remove.
 	 */
-	public boolean removeProduct(Product p) {
-		throw new UnsupportedOperationException("Not yet implemented");
+	public boolean removeProduct(Product p)
+	{
+		return Products.removeProduct(p, this);
 	}
 	
 	/**
@@ -130,12 +143,49 @@ public class DatabaseManager extends postgresql {
 	 *
 	 * @return a string array containing all product categories.
 	 */
-	public String[] getProductCategories() {
-		return get_sql_ProductCategories();
+	public String[] getProductCategories()
+	{
+
+		return null;
 	}
-	
-	public void unregisterProfile(RegisteredProfile profile) {
-		throw new UnsupportedOperationException("Not yet implemented");
+
+	// Objects
+	@Override
+	public Connection returnConnector()
+	{
+		return connector;
 	}
-	
+
+	@Override
+	public boolean Open()
+	{
+		try {
+			connector = DriverManager.getConnection("jdbc:postgresql://localhost:5432/webshop_db",
+					"postgres",
+					"Epc63gez");
+			return true;
+		}
+		catch (Exception ex)
+		{
+
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean Close()
+	{
+		try
+		{
+			connector.close();
+			return true;
+		}
+		catch (Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+
+		return false;
+	}
 }
