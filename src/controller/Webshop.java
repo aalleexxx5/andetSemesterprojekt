@@ -23,8 +23,7 @@ public class Webshop {
 	
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
-		dbm = new DatabaseManager("postgres", "Password", "//localhost", "5432", "webshop_db");
-		//dbm = new DatabaseManagerMock();
+		dbm = new DatabaseManager();
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
 
 	}

@@ -3,7 +3,6 @@ package model.serviceManager.databases;
 import model.product.Product;
 import model.profile.ProfileType;
 import model.profile.RegisteredProfile;
-import model.serviceManager.DatabaseManager;
 
 import java.util.ArrayList;
 
