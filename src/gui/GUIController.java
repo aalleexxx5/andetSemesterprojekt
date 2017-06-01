@@ -20,7 +20,7 @@ import controller.Webshop;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class GUIController implements Initializable {
 	//TODO search with string.contains
 	private static String INVALID_TEXT_FIELD_COLOR = "ffcccc";
 	private static String DEFAULT_TEXT_FIELD_COLOR = "ffffff";
