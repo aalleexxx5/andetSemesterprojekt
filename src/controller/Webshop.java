@@ -36,10 +36,11 @@ public class Webshop {
 	 * @return <code>true</code>, if a profile with the given credentials was found.
 	 */
 	public boolean login(String username, String password) {
-		currentProfile = dbm.login(username, password);
+		RegisteredProfile rf = dbm.login(username, password);
 		
-		if (currentProfile != null)
+		if (rf != null)
 		{
+			currentProfile = rf;
 			return true;
 		}
 		

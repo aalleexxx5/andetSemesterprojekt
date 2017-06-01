@@ -1,8 +1,10 @@
 package model.serviceManager.objects;
 
 import model.profile.Profile;
+import model.profile.ProfileType;
 import model.profile.RegisteredProfile;
 import model.serviceManager.DatabaseInterface;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,15 +15,16 @@ import java.sql.Statement;
  */
 public class Profiles
 {
-    private static String sqlUserLogin = "SELECT * FROM profiles WHERE usernames ='[0]' AND passwords = crypt('[1]', profiles.salts);";
+    private static String sqlUserLogin = "SELECT * FROM profiles WHERE usernames='[0]' AND passwords = crypt('[1]', profiles.salts);";
 
-    private int identity;
+    private int identity = -1;
 
-    private String ProfilePrivileges;
-    private String Name;
-    private String Address;
-    private String Phone;
-    private String Email;
+    private String ProfilePrivileges = "Unknown";
+
+    private String Name              = "";
+    private String Address           = "";
+    private String Phone             = "";
+    private String Email             = "";
 
     public Profiles( String username, String password, DatabaseInterface db_interface )
     {
@@ -68,6 +71,7 @@ public class Profiles
         }
         catch (Exception ex)
         {
+            System.out.print("Error");
             System.out.println(ex.getMessage());
         }
 
@@ -105,8 +109,7 @@ public class Profiles
     }
 
     // Set
-
-    public static boolean RegisterProfile()
+    public static boolean RegisterProfile(String username, String password, RegisteredProfile rp)
     {
 
         return false;
@@ -114,12 +117,47 @@ public class Profiles
 
     public static boolean UnregisterProfile()
     {
-        return false;
+        throw new NotImplementedException();
     }
 
-    public static boolean ExistProfile()
+    static String getSQLuserProfilenames = "SELECT * from profile_names WHERE usernames='[0]';";
+
+    public static boolean ExistProfile(String username, DatabaseInterface di)
     {
-        return false;
+        String sql = getSQLuserProfilenames.replace("[0]", username);
+
+        boolean ret = false;
+
+        try
+        {
+            di.Open();
+
+            Connection c = di.returnConnector();
+
+            Statement stmt;
+            ResultSet rs;
+
+            stmt = c.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next())
+            {
+                if( username.equals( rs.getString("usernames") ) )
+                {
+                    ret = true;
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally {
+            di.Close();
+        }
+
+        return ret;
     }
 
     public static RegisteredProfile getModelProfile( Profiles prof )
@@ -131,6 +169,34 @@ public class Profiles
                                                             prof.getEmail());
 
 
-        return resprof;
+
+        return setPrivileges(prof.getProfilePrivileges(), resprof);
     }
+
+    public static RegisteredProfile setPrivileges(String privileges, RegisteredProfile prof)
+    {
+        RegisteredProfile rp = prof;
+
+        switch (privileges)
+        {
+            case "employee":
+                rp.setType(ProfileType.EMPLOEE);
+                break;
+
+            case "admin":
+                rp.setType(ProfileType.ADMIN);
+                break;
+
+            case "client":
+                rp.setType(ProfileType.CLIENT);
+                break;
+
+            default:
+                rp.setType(ProfileType.VISITOR);
+                break;
+        }
+
+        return  prof;
+    }
+
 }

@@ -3,8 +3,10 @@ package model.serviceManager;
 import model.product.Product;
 import model.profile.Profile;
 import model.profile.RegisteredProfile;
+import model.serviceManager.objects.Categories;
 import model.serviceManager.objects.Products;
 import model.serviceManager.objects.Profiles;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,7 +33,7 @@ public class DatabaseManager implements DatabaseInterface
 	                       String Database)
 	{
 
-		
+
 	}
 	
 	
@@ -51,9 +53,12 @@ public class DatabaseManager implements DatabaseInterface
          Good luck.
           */
 
+		if( username.isEmpty() || password.isEmpty() )
+			return null;
+
 		RegisteredProfile registered = Profiles.getModelProfile(new Profiles(username, password, this));
 		
-		if (registered == null)
+		if ( registered == null || registered.getProfileID() == -1 )
 			return null;
 
 		return registered;
@@ -69,13 +74,16 @@ public class DatabaseManager implements DatabaseInterface
 	 */
 	public boolean registerProfile(RegisteredProfile profile, String username, String password)
 	{
+		if(userExists(username))
+			return false;
+
 		//Remember to check for username and password validity.
-		return Profiles.RegisterProfile();
+		return Profiles.RegisterProfile(username, password, profile);
 	}
 
 	public boolean unregisterProfile( RegisteredProfile profile )
 	{
-		return Profiles.UnregisterProfile();
+		throw new NotImplementedException();
 	}
 
 	/**
@@ -86,7 +94,7 @@ public class DatabaseManager implements DatabaseInterface
 	 */
 	public boolean userExists(String username)
 	{
-		return Profiles.ExistProfile();
+		return Profiles.ExistProfile(username, this);
 	}
 
 	/**
@@ -145,8 +153,9 @@ public class DatabaseManager implements DatabaseInterface
 	 */
 	public String[] getProductCategories()
 	{
+		String[] CatProdList = Categories.getProductsCategories(this);
 
-		return null;
+		return CatProdList;
 	}
 
 	// Objects
