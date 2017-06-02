@@ -20,12 +20,10 @@ public class Webshop {
 	private Profile currentProfile;
 	private ProductCatalogue productCatalogue;
 	
-	
 	public Webshop() {
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
 		dbm = new DatabaseManager();
 		productCatalogue = new ProductCatalogue(dbm.getProductList());
-
 	}
 	
 	/**
@@ -38,8 +36,7 @@ public class Webshop {
 	public boolean login(String username, String password) {
 		RegisteredProfile rf = dbm.login(username, password);
 		
-		if (rf != null)
-		{
+		if (rf != null) {
 			currentProfile = rf;
 			return true;
 		}
@@ -47,8 +44,7 @@ public class Webshop {
 		return false;
 	}
 	
-	public void logout()
-	{
+	public void logout() {
 		currentProfile = null;
 		currentProfile = new Profile(141, ProfileType.VISITOR);//TEMPORARY
 	}
@@ -68,7 +64,6 @@ public class Webshop {
 				"        }");
 		
 		dbm.registerProfile(p, username, password);
-		
 		
 		return true;
 	}
@@ -93,23 +88,18 @@ public class Webshop {
 	}
 	
 	public void addProduct(Product p) {
-		if (currentProfile.getType() == ProfileType.ADMIN)
-		{
+		if (currentProfile.getType() == ProfileType.ADMIN) {
 			System.out.println("Placeholder product add");
 			productCatalogue.addProduct(p);
 			dbm.addProduct(p);
 			System.out.println("list.add(new product(\"" + p.getName() + "\",\"" + p.getCategory() + "\", " + p.getProductID() + ", " + p.getPrice() + "));\n");
-		}
-		else
-		{
+		} else {
 			System.out.println("Sorry, you are not logged in as an admin, and can not add new products.");
 		}
-
 	}
 	
-	public void addToCart(Product p){
-		currentProfile.getCart().addProductToCart(p,1);
-	
+	public void addToCart(Product p) {
+		currentProfile.getCart().addProductToCart(p, 1);
 	}
 	
 	/**
@@ -121,7 +111,7 @@ public class Webshop {
 		if (currentProfile == null) throw new IllegalStateException("Current profile is not allowed to be null!");
 		return currentProfile;
 	}
-
+	
 	public ArrayList<ExtraServices> showExtraServices() {
 		return productCatalogue.getExtraServices(currentProfile.getCart().getProducts());
 	}

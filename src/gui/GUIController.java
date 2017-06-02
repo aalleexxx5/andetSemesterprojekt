@@ -25,27 +25,19 @@ public class GUIController implements Initializable {
 	private static String INVALID_TEXT_FIELD_COLOR = "ffcccc";
 	private static String DEFAULT_TEXT_FIELD_COLOR = "ffffff";
 	private static String APPROVED_TEXT_FIELD_COLOR = "ccffcc";
-	
 	public Label topLabel;
 	public Label loggedInLabel;
-	
 	public PasswordField password;
-	
 	public Button login;
 	public Button logout;
 	public Button signUp;
 	public Button addProductSubmit;
 	public Button shopAddToCart;
-	
 	public PasswordField signPassword;
 	public PasswordField signRepPassword;
-	
 	public TextArea signAddress;
-	
 	public TableView<Product> shopTable;
-	
 	public TableView cartTableView;
-	
 	public TableColumn shopListNameCol;
 	public TableColumn shopListPriceCol;
 	public TableColumn shopListCategoryCol;
@@ -63,15 +55,11 @@ public class GUIController implements Initializable {
 	public Button nextExtraServices;
 	public TabPane tabPane;
 	public Tab checkout;
-    public TextField checkoutNameField;
-    public TextField checkoutAddressField;
-    public TextField checkoutEmailField;
-    public TextField checkoutPhonenumberField;
-
-    private Webshop webshop;
-	
+	public TextField checkoutNameField;
+	public TextField checkoutAddressField;
+	public TextField checkoutEmailField;
+	public TextField checkoutPhonenumberField;
 	public Tab updateCart;
-	
 	public TextField addProductPrice;
 	public TextField username;
 	public TextField signUsername;
@@ -81,7 +69,8 @@ public class GUIController implements Initializable {
 	public TextField addProductName;
 	public TextField addProductCategory;
 	public TextField addProductID;
-
+	private Webshop webshop;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		webshop = new Webshop();
@@ -96,12 +85,12 @@ public class GUIController implements Initializable {
 		cartProductCategoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 		cartProductAmountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
 		cartProductTotalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
-
+		
 		eSName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		eSPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 		eSCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
 	}
-
+	
 	@FXML
 	public void addProduct(ActionEvent event) {
 		if (addProductID.getText().matches("\\d*")) {
@@ -117,31 +106,30 @@ public class GUIController implements Initializable {
 	}
 	
 	@FXML
-	public void addToCart(ActionEvent event){
+	public void addToCart(ActionEvent event) {
 		webshop.addToCart(shopTable.getSelectionModel().getSelectedItem());
-	
-		
 	}
 	
 	public void updateCartView(Event event) {
-		if(updateCart.isSelected()){
+		if (updateCart.isSelected()) {
 			cartTableView.setItems(
 					FXCollections.observableArrayList(
 							CartTableEntry.getCartList(webshop.getCurrentProfile().getCart())));
 		}
 	}
-
+	
 	/**
 	 * The function runs on a key typed event in the email field, and turns the field a pale green, when email is valid.
+	 *
 	 * @param e The key event triggering the function.
 	 */
 	@FXML
 	void emailVerification(KeyEvent e) {
-		if (validateAndPaintEmailField()){
+		if (validateAndPaintEmailField()) {
 			recolorTextInput(signEmail, APPROVED_TEXT_FIELD_COLOR);
 		}
 	}
-
+	
 	/**
 	 * If all fields are valid, the profile will be created. Whether the creation was successful is currently be printed through sout.
 	 * TODO There is currently no error message displayed.
@@ -157,7 +145,7 @@ public class GUIController implements Initializable {
 			System.out.println(webshop.register(signUsername.getText(), signPassword.getText(), profileToRegister));
 		}
 	}
-
+	
 	/**
 	 * Attempts to find and log in the user from the credentials inserted in the username and password field.
 	 * The label notifies the user if the login was successful.
@@ -173,12 +161,12 @@ public class GUIController implements Initializable {
 		}
 		loggedInLabel.setText("Logged in as: " + webshop.getCurrentProfile().getType());
 	}
-
+	
 	@FXML
 	void logout(ActionEvent ae) {
 		webshop.logout();
 	}
-
+	
 	/**
 	 * Returns whether the text in all input fields is valid.
 	 *
@@ -188,7 +176,7 @@ public class GUIController implements Initializable {
 		return validateAndPaintPasswordFields() && validateAndPaintUsernameField() && validateAndPaintNameField() &&
 				validateAndPaintEmailField() && validateAndPaintPhoneField() && validateAndPaintAddressField();
 	}
-
+	
 	/**
 	 * Validates the password fields, and paints them red if invalid.
 	 * Valid password fields has more than 9 characters, contains the same text.
@@ -209,7 +197,7 @@ public class GUIController implements Initializable {
 			return true;
 		}
 	}
-
+	
 	/**
 	 * Validates the username field, and paints it red if invalid.
 	 * A valid username field is not empty, and does not already exist in the system.
@@ -223,7 +211,7 @@ public class GUIController implements Initializable {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Validates the email field, and paints it red if invalid.
 	 * A valid email fiels has a valid email address entered.
@@ -237,7 +225,7 @@ public class GUIController implements Initializable {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Validates the name field, and paints it red if invalid.
 	 * a valid name filed is not empty.
@@ -251,7 +239,7 @@ public class GUIController implements Initializable {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Validates the Phone field, and paints it red if invalid.
 	 * a valid phone field has no more or less then 8 digits.
@@ -265,7 +253,7 @@ public class GUIController implements Initializable {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Validates the Address field and paints it red if invalid.
 	 * A valid address is not empty.
@@ -279,7 +267,7 @@ public class GUIController implements Initializable {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Recolors a text input field.
 	 *
@@ -289,23 +277,23 @@ public class GUIController implements Initializable {
 	private void recolorTextInput(TextInputControl textInput, String hexColor) {
 		textInput.setBackground(new Background(new BackgroundFill(Paint.valueOf(hexColor), null, null)));
 	}
-
+	
 	@FXML
 	private void showExtraServices(ActionEvent e) {
 		tabPane.getSelectionModel().select(extraServices);
 		FXCollections.observableArrayList(webshop.showExtraServices());
 	}
-
+	
 	@FXML
 	private void proceedToCheckout(ActionEvent e) {
-
+		
 		tabPane.getSelectionModel().select(checkout);
 		if (webshop.getCurrentProfile().getType() != ProfileType.VISITOR) {
-            RegisteredProfile currentProfile = (RegisteredProfile)webshop.getCurrentProfile();
-            checkoutNameField.setText(currentProfile.getName());
-		    checkoutAddressField.setText(currentProfile.getAddress());
-		    checkoutEmailField.setText(currentProfile.getEmail());
-		    checkoutPhonenumberField.setText(currentProfile.getPhone());
-        }
+			RegisteredProfile currentProfile = (RegisteredProfile) webshop.getCurrentProfile();
+			checkoutNameField.setText(currentProfile.getName());
+			checkoutAddressField.setText(currentProfile.getAddress());
+			checkoutEmailField.setText(currentProfile.getEmail());
+			checkoutPhonenumberField.setText(currentProfile.getPhone());
+		}
 	}
 }

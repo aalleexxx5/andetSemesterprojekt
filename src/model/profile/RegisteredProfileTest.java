@@ -49,12 +49,11 @@ public class RegisteredProfileTest {
 		assertNotNull(profileWithoutOrders.getProcessedOrders());
 		RegisteredProfile profileWithOrders = generateRegisteredProfileWithOrders(2);
 		assertNotNull("A profile with orders must not return a null", profileWithOrders.getProcessedOrders());
-		
 	}
 	
 	private RegisteredProfile generateRegisteredProfileWithNoOrders() {
 		int profileID = GenerationUtils.generateUniqueInt(10000);
-		String name = GenerationUtils.generateUniqueString(5) +" "+GenerationUtils.generateRandomString(5);
+		String name = GenerationUtils.generateUniqueString(5) + " " + GenerationUtils.generateRandomString(5);
 		String address = GenerationUtils.generateRandomString(10);
 		String phone = String.valueOf(GenerationUtils.generateRandomIntByLength(8));
 		String email = GenerationUtils.generateRandomString(10) +
@@ -66,7 +65,7 @@ public class RegisteredProfileTest {
 	
 	private RegisteredProfile generateRegisteredProfileWithOrders(int amountOfOrders) {
 		int profileID = GenerationUtils.generateUniqueInt(10000);
-		String name = GenerationUtils.generateUniqueString(5) +" "+GenerationUtils.generateRandomString(5);
+		String name = GenerationUtils.generateUniqueString(5) + " " + GenerationUtils.generateRandomString(5);
 		String address = GenerationUtils.generateRandomString(10);
 		String phone = String.valueOf(GenerationUtils.generateRandomIntByLength(8));
 		String email = GenerationUtils.generateRandomString(10) +

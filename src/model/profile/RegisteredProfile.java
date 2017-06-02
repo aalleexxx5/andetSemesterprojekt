@@ -80,5 +80,4 @@ public class RegisteredProfile extends Profile {
 	public Order[] getProcessedOrders() {
 		return processedOrders;
 	}
-	
 }

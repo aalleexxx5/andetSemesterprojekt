@@ -22,10 +22,6 @@ public class Profile {
 		wishlist = new ArrayList<Product>();
 	}
 	
-	public void setType(ProfileType type) {
-		this.type = type;
-	}
-	
 	/**
 	 * Returns the cart from the profile
 	 *
@@ -51,6 +47,10 @@ public class Profile {
 	 */
 	public ProfileType getType() {
 		return type;
+	}
+	
+	public void setType(ProfileType type) {
+		this.type = type;
 	}
 	
 	/**

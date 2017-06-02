@@ -25,6 +25,12 @@ public class DatabaseManagerTest {
 	static final Product product2 = new Product("bb", "electronics", -2, 0.00);
 	static final Product product3 = new Product("cc", "cc", -3, 0.00);
 	
+	@AfterClass
+	public static void cleanupDatabase() {
+		dbm.unregisterProfile(profile);
+		dbm.unregisterProfile(profile2);
+	}
+	
 	@Before
 	public void setUpDatabase() {
 		dbm.registerProfile(profile, uname, pword);
@@ -33,33 +39,26 @@ public class DatabaseManagerTest {
 		dbm.removeProduct(product2);
 	}
 	
-	@AfterClass
-	public static void cleanupDatabase() {
-		dbm.unregisterProfile(profile);
-		dbm.unregisterProfile(profile2);
-
-	}
-	
 	@org.junit.Test
 	public void userExists() throws Exception {
-		assertTrue("A registered username should return true",dbm.userExists(uname));
-		assertFalse("An unregistered username should return false",dbm.userExists(uname2));
+		assertTrue("A registered username should return true", dbm.userExists(uname));
+		assertFalse("An unregistered username should return false", dbm.userExists(uname2));
 	}
 	
 	@org.junit.Test
 	public void registerProfile() throws Exception {
-		assertFalse("registering an already-registered profile should return false",dbm.registerProfile(profile, uname, pword));
-		assertFalse("registering a different profile with the same username, should return false",dbm.registerProfile(profile2, uname, pword));
-		assertTrue("registering a new profile should return true",dbm.registerProfile(profile2, uname2, pword2));
-		assertFalse("registering an already registered profile, with a different username should return false",dbm.registerProfile(profile, uname3, pword));
+		assertFalse("registering an already-registered profile should return false", dbm.registerProfile(profile, uname, pword));
+		assertFalse("registering a different profile with the same username, should return false", dbm.registerProfile(profile2, uname, pword));
+		assertTrue("registering a new profile should return true", dbm.registerProfile(profile2, uname2, pword2));
+		assertFalse("registering an already registered profile, with a different username should return false", dbm.registerProfile(profile, uname3, pword));
 	}
 	
 	@org.junit.Test
 	public void login() throws Exception {
-		assertNull("Logging in an unknown profile should result in a null object returned",dbm.login(uname3, pword3));
-		assertNull("Logging in with an incorrect password, should return null",dbm.login(uname, pword2));
-		assertNull("Logging in with an incorrect username, should return null",dbm.login(uname2, pword));
-		assertTrue("Logging in with a correct username and password, should return a profile with the same information as the saved one though not necessarily the same object.",profile.getName().equals(dbm.login(uname, pword).getName()));
+		assertNull("Logging in an unknown profile should result in a null object returned", dbm.login(uname3, pword3));
+		assertNull("Logging in with an incorrect password, should return null", dbm.login(uname, pword2));
+		assertNull("Logging in with an incorrect username, should return null", dbm.login(uname2, pword));
+		assertTrue("Logging in with a correct username and password, should return a profile with the same information as the saved one though not necessarily the same object.", profile.getName().equals(dbm.login(uname, pword).getName()));
 		assertTrue(profile.getAddress().equals(dbm.login(uname, pword).getAddress()));
 		assertTrue(profile.getPhone().equals(dbm.login(uname, pword).getPhone()));
 		assertTrue(profile.getEmail().equals(dbm.login(uname, pword).getEmail()));
@@ -74,24 +73,22 @@ public class DatabaseManagerTest {
 	
 	@org.junit.Test(timeout = 500)
 	public void getProductList() throws Exception {
-		assertNotNull("The returned products from the database must not be null.",dbm.getProductList());
+		assertNotNull("The returned products from the database must not be null.", dbm.getProductList());
 	}
-
+	
 	@org.junit.Test
 	public void addProduct() throws Exception {
-		assertTrue("A product should be registered",dbm.addProduct(product2));
-		assertFalse("an already registered product should not be able to register.",dbm.addProduct(product));
-		assertFalse("a product with an invalid category should not be registered.",dbm.addProduct(product3));
+		assertTrue("A product should be registered", dbm.addProduct(product2));
+		assertFalse("an already registered product should not be able to register.", dbm.addProduct(product));
+		assertFalse("a product with an invalid category should not be registered.", dbm.addProduct(product3));
 	}
-
+	
 	@org.junit.Test
 	public void removeProduct() throws Exception {
-		assertTrue("a registered product should be removed",dbm.removeProduct(product));
-		assertFalse("removing a non registered product should return false",dbm.removeProduct(product));
+		assertTrue("a registered product should be removed", dbm.removeProduct(product));
+		assertFalse("removing a non registered product should return false", dbm.removeProduct(product));
 	}
-
-
-
+	
 	@org.junit.Test(timeout = 500)
 	public void getProductCategoriesShouldNotReturnNull() throws Exception {
 		assertNotNull(dbm.getProductCategories());

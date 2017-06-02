@@ -17,20 +17,20 @@ public class CartTableEntry {
 	private int amount;
 	private double total;
 	
-	public static ArrayList<CartTableEntry> getCartList(Cart cart){
-		ArrayList<CartTableEntry> cartTableEntries = new ArrayList<>();
-		for (Product product : cart.getProductMap().keySet()) {
-			cartTableEntries.add(new CartTableEntry(product.getName(),product.getCategory(),
-					cart.getProductMap().get(product),product.getPrice()*cart.getProductMap().get(product)));
-		}
-		return cartTableEntries;
-	}
-	
 	private CartTableEntry(String name, String category, int amount, double total) {
 		this.name = name;
 		this.category = category;
 		this.amount = amount;
 		this.total = total;
+	}
+	
+	public static ArrayList<CartTableEntry> getCartList(Cart cart) {
+		ArrayList<CartTableEntry> cartTableEntries = new ArrayList<>();
+		for (Product product : cart.getProductMap().keySet()) {
+			cartTableEntries.add(new CartTableEntry(product.getName(), product.getCategory(),
+					cart.getProductMap().get(product), product.getPrice() * cart.getProductMap().get(product)));
+		}
+		return cartTableEntries;
 	}
 	
 	public String getName() {

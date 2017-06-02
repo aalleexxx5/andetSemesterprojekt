@@ -19,23 +19,19 @@ import java.util.List;
  * This class contains all communication with the database.
  * Since there currently is no database, all the methods are placeholders and returns values for testing purposes.
  */
-public class DatabaseManager implements DatabaseInterface
-{
+public class DatabaseManager implements DatabaseInterface {
 	Connection connector = null;
-
+	
 	// Tags: Constructors
 	public DatabaseManager() {
-
+		
 	}
 	
 	public DatabaseManager(String Username, String Password,
 	                       String Url, String Port,
-	                       String Database)
-	{
-
-
+	                       String Database) {
+		
 	}
-	
 	
 	/**
 	 * Attempts to log a user in. The database will return the profile data if username and password matches a profile in the database.
@@ -52,15 +48,15 @@ public class DatabaseManager implements DatabaseInterface
          Test if it works with what's inside the diamond brackets as username and password <' OR '1'='1' -->
          Good luck.
           */
-
-		if( username.isEmpty() || password.isEmpty() )
+		
+		if (username.isEmpty() || password.isEmpty())
 			return null;
-
+		
 		RegisteredProfile registered = Profiles.getModelProfile(new Profiles(username, password, this));
 		
-		if ( registered == null || registered.getProfileID() == -1 )
+		if (registered == null || registered.getProfileID() == -1)
 			return null;
-
+		
 		return registered;
 	}
 	
@@ -72,57 +68,52 @@ public class DatabaseManager implements DatabaseInterface
 	 * @param password The password of the profile.
 	 * @return True if the operation was successful, false otherwise.
 	 */
-	public boolean registerProfile(RegisteredProfile profile, String username, String password)
-	{
-		if(userExists(username))
+	public boolean registerProfile(RegisteredProfile profile, String username, String password) {
+		if (userExists(username))
 			return false;
-
+		
 		//Remember to check for username and password validity.
 		return Profiles.RegisterProfile(username, password, profile, this);
 	}
-
-	public boolean unregisterProfile( RegisteredProfile profile )
-	{
+	
+	public boolean unregisterProfile(RegisteredProfile profile) {
 		throw new NotImplementedException();
 	}
-
+	
 	/**
 	 * Returns whether a username is in use in the database.
 	 *
 	 * @param username The username to check
 	 * @return True, if the name is in use.
 	 */
-	public boolean userExists(String username)
-	{
+	public boolean userExists(String username) {
 		return Profiles.ExistProfile(username, this);
 	}
-
+	
 	/**
 	 * Returns the full list of all products.
 	 *
 	 * @return an array of products.
 	 */
-	public ArrayList<Product> getProductList()
-	{
+	public ArrayList<Product> getProductList() {
 		ArrayList<Product> prodList = new ArrayList<>();
-
+		
 		// Retrieves all product_identities in the Database
 		List<Integer> identities = Products.getProductIdentities(this);
-
+		
 		// For each of them, get their columns.
 		// Temp : Could be made alot easier
-		for( int i : identities )
-		{
-			if ( i == -1 )
+		for (int i : identities) {
+			if (i == -1)
 				continue;
-
+			
 			// gets the products, attributes
-			Products p = new Products( i, this );
-
+			Products p = new Products(i, this);
+			
 			// Convert to a model product
-			prodList.add( p.getModelProduct() );
+			prodList.add(p.getModelProduct());
 		}
-
+		
 		return prodList;
 	}
 	
@@ -131,9 +122,8 @@ public class DatabaseManager implements DatabaseInterface
 	 *
 	 * @param p The product to add.
 	 */
-	public boolean addProduct(Product p)
-	{
-		return Products.addProduct( p, this );
+	public boolean addProduct(Product p) {
+		return Products.addProduct(p, this);
 	}
 	
 	/**
@@ -141,8 +131,7 @@ public class DatabaseManager implements DatabaseInterface
 	 *
 	 * @param p the product to remove.
 	 */
-	public boolean removeProduct(Product p)
-	{
+	public boolean removeProduct(Product p) {
 		return Products.removeProduct(p, this);
 	}
 	
@@ -151,50 +140,41 @@ public class DatabaseManager implements DatabaseInterface
 	 *
 	 * @return a string array containing all product categories.
 	 */
-	public String[] getProductCategories()
-	{
+	public String[] getProductCategories() {
 		String[] CatProdList = Categories.getProductsCategories(this);
-
+		
 		return CatProdList;
 	}
-
+	
 	// Objects
 	@Override
-	public Connection returnConnector()
-	{
+	public Connection returnConnector() {
 		return connector;
 	}
-
+	
 	@Override
-	public boolean Open()
-	{
+	public boolean Open() {
 		try {
 			connector = DriverManager.getConnection("jdbc:postgresql://localhost:5432/webshop_db",
 					"postgres",
 					"Epc63gez");
 			return true;
+		} catch (Exception ex) {
+			
 		}
-		catch (Exception ex)
-		{
-
-		}
-
+		
 		return false;
 	}
-
+	
 	@Override
-	public boolean Close()
-	{
-		try
-		{
+	public boolean Close() {
+		try {
 			connector.close();
 			return true;
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-
+		
 		return false;
 	}
 }

@@ -27,7 +27,7 @@ public class ProductCatalogue {
 	public void addProduct(Product p) {
 		products.add(p);
 	}
-
+	
 	public ArrayList<ExtraServices> getExtraServices(Product[] productsInCart) {
 		ArrayList<ExtraServices> extraServicesForProductList = new ArrayList<>();
 		for (Product product : productsInCart) {
