@@ -109,11 +109,102 @@ public class Profiles
     }
 
     // Set
-    public static boolean RegisterProfile(String username, String password, RegisteredProfile rp)
+    public static boolean RegisterProfile( String username, String password,
+                                           RegisteredProfile rp,
+                                           DatabaseInterface di )
     {
+        if( ExistProfile(username, di) )
+            return false;
 
-        return false;
+        int profheader = -1;
+
+        profheader = create_profheader( username, password, di );
+
+        if( profheader == -1 )
+            return false;
+
+        if( create_profinfo(profheader, rp, di) == -1 )
+            return false;
+
+        return true;
     }
+
+    static String insertSqlprofile_header = "INSERT INTO account.profile_header(username, password) VALUES('[0]', '[1]')";
+    private static int create_profheader( String username, String password,
+                                          DatabaseInterface di )
+    {
+        // Register User_prof_header
+        String sql = insertSqlprofile_header;
+
+        sql = sql.replace("[0]", username);
+        sql = sql.replace("[1]", password);
+
+        int ret = -1;
+        // Upload
+
+        try
+        {
+            di.Open();
+
+            Connection c = di.returnConnector();
+
+            Statement stmt = null;
+
+            stmt = c.createStatement();
+            stmt.executeUpdate( sql, Statement.RETURN_GENERATED_KEYS );
+
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            while (rs.next())
+            {
+                ret = rs.getInt("identities");
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+            di.Close();
+        }
+
+        return ret;
+    }
+
+    static String insertSQLProfile_Information = "INSERT INTO account.profile_information(ref_user, email) VALUES([0], '[1]')";
+    private static int create_profinfo( int user, RegisteredProfile prof, DatabaseInterface di )
+    {
+        String sql = insertSQLProfile_Information;
+
+        sql = sql.replace("[0]", Integer.toString(user) );
+        sql = sql.replace("[1]", prof.getEmail() );
+
+        System.out.print(sql);
+
+        try
+        {
+            di.Open();
+
+            Connection c = di.returnConnector();
+
+            Statement stmt = c.createStatement();
+
+            stmt.execute(sql);
+        }
+        catch (Exception ex)
+        {
+            System.out.print(ex.getMessage());
+        }
+        finally {
+            di.Close();
+        }
+
+        return -1;
+    }
+
+    
 
     public static boolean UnregisterProfile()
     {

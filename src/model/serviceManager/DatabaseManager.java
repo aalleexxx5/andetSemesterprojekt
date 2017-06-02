@@ -78,7 +78,7 @@ public class DatabaseManager implements DatabaseInterface
 			return false;
 
 		//Remember to check for username and password validity.
-		return Profiles.RegisterProfile(username, password, profile);
+		return Profiles.RegisterProfile(username, password, profile, this);
 	}
 
 	public boolean unregisterProfile( RegisteredProfile profile )

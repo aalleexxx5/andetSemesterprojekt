@@ -108,15 +108,24 @@ BEGIN
       -- Generate Password
       NEW.password = crypt(NEW.password, NEW.salt);
     RETURN NEW;
-    ELSEIF ( tg_op = 'UPDATE' )
-      THEN
-      -- Generate SALT
-      NEW.salt = gen_salt('bf');
+    ELSEIF ( tg_op = 'UPDATE' ) THEN
 
-      -- Generate Password
-      NEW.password = crypt(NEW.password, NEW.salt);
-    RETURN NEW;
+      -- If not Empty, then
+      IF ( NEW.password != old.password )
+        THEN
+        -- Generate SALT
+        NEW.salt = gen_salt('bf');
+
+        -- Generate Password
+        NEW.password = crypt(NEW.password, NEW.salt);
+
+        RETURN NEW;
+
+      END IF;
+
   END IF;
+  
+  RETURN New;
 
 END;
 $$;
@@ -395,9 +404,9 @@ ALTER TABLE profile_header_table OWNER TO postgres;
 CREATE TABLE profile_information (
     identities bigint NOT NULL,
     ref_user bigint NOT NULL,
-    ref_person_name integer NOT NULL,
-    ref_address integer NOT NULL,
-    ref_phone bigint NOT NULL,
+    ref_person_name integer DEFAULT 33 NOT NULL,
+    ref_address integer DEFAULT 4 NOT NULL,
+    ref_phone bigint DEFAULT 4 NOT NULL,
     email text
 );
 
@@ -815,6 +824,17 @@ ALTER SEQUENCE product_list_identities_seq OWNED BY product_list.identities;
 SET search_path = public, pg_catalog;
 
 --
+-- Name: catalog; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW catalog AS
+ SELECT product_category.name
+   FROM catalog.product_category;
+
+
+ALTER TABLE catalog OWNER TO postgres;
+
+--
 -- Name: products_table; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -849,6 +869,17 @@ CREATE VIEW profiles AS
 
 
 ALTER TABLE profiles OWNER TO postgres;
+
+--
+-- Name: profile_names; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW profile_names AS
+ SELECT profiles.usernames
+   FROM profiles;
+
+
+ALTER TABLE profile_names OWNER TO postgres;
 
 SET search_path = world, pg_catalog;
 
@@ -1503,6 +1534,15 @@ CREATE INDEX users_indexed ON profile_header USING btree (identities, username, 
 --
 
 CREATE INDEX users_profile_information_index ON profile_information USING btree (identities, ref_user, ref_person_name, ref_address, ref_phone);
+
+
+SET search_path = catalog, pg_catalog;
+
+--
+-- Name: product_category_name_uindex; Type: INDEX; Schema: catalog; Owner: postgres
+--
+
+CREATE UNIQUE INDEX product_category_name_uindex ON product_category USING btree (name);
 
 
 SET search_path = world, pg_catalog;
